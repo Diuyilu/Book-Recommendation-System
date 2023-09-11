@@ -1,8 +1,9 @@
 from flask_restful import Resource
 from flask_restful import request
-
+from flask import session
 from user.models import User
 from user.serializers import user_serializer
+from extension import db
 
 
 class GetUserInfo(Resource):

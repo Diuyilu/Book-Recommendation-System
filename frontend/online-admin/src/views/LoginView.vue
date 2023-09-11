@@ -14,7 +14,7 @@
           <el-input class="input" v-model="form.password" placeholder="密码" :prefix-icon="Lock" />
         </el-form-item>
         <div class="btns">
-          <el-button type="primary" class="btn">登录</el-button>
+          <el-button type="primary" class="btn" @click="login">登录</el-button>
           <div class="btn reset" @click="reset">重置</div>
         </div>
       </el-form>
@@ -27,17 +27,22 @@ import { User, Lock } from '@element-plus/icons-vue';
 import { FormInstance } from 'element-plus';
 import { ref } from 'vue';
 import { rules } from '@/rules/userinfo';
+import { loginApi } from '@/apis/login';
 interface Form {
   username: string;
   password: string;
 }
 const form = ref<Form>({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: 'admin',
 })
 
 const formRef = ref<FormInstance>()
 
+const login = async () => {
+  const res = await loginApi(form.value)
+  console.log(res)
+}
 const reset = () => {
   formRef.value.resetFields()
 };
