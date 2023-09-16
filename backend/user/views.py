@@ -10,3 +10,12 @@ class GetUserInfo(Resource):
     def get(self):
         userinfo = User.query.all()
         return user_serializer(userinfo)
+
+class UserLogin(Resource):
+    def post(self):
+        params = request.get_json()
+        username = params['username']
+        password = params['password']
+
+
+

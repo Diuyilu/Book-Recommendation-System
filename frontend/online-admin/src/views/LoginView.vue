@@ -24,10 +24,14 @@
 
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue';
-import { FormInstance } from 'element-plus';
+import { ElMessage, FormInstance } from 'element-plus';
 import { ref } from 'vue';
 import { rules } from '@/rules/userinfo';
 import { loginApi } from '@/apis/login';
+import { useUserInfoStore } from '@/stores/userinfo.store';
+import router from '@/router';
+
+const userInfoStore = useUserInfoStore();
 interface Form {
   username: string;
   password: string;
@@ -42,6 +46,9 @@ const formRef = ref<FormInstance>()
 const login = async () => {
   const res = await loginApi(form.value)
   console.log(res)
+  userInfoStore.setAuth(res.data.token);
+  ElMessage.success("登录成功！")
+  router.push("/home")
 }
 const reset = () => {
   formRef.value.resetFields()

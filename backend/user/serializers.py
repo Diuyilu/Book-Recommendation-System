@@ -11,3 +11,4 @@ def user_serializer(userinfo):
         }
         user_list.append(user_dict)
     return jsonify({'user_list': user_list, "status": 1})
+
