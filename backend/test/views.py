@@ -7,5 +7,5 @@ from test.serializers import booktest_serializer
 
 class GetBookTestInfo(Resource):
     def get(self):
-        booktest = BookTest.query.all()
+        booktest = BookTest.query.limit(10)
         return booktest_serializer(booktest)

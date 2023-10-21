@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { House, User, Notebook } from '@element-plus/icons-vue'
+import { House, User, Platform } from '@element-plus/icons-vue'
 import { ElSubMenu, ElMenuItem } from 'element-plus'
 import { ref } from 'vue'
 import router from '@/router'
@@ -59,25 +59,25 @@ const menulist: MenuItem[] = [
   },
   {
     id: 2,
-    name: '用户管理',
-    index: '/home/users',
-    icon: User
+    name: '数据大屏',
+    index: '/home/datav',
+    icon: Platform
   },
   {
-    id: 101,
-    name: '图书管理',
-    index: '/home/book',
-    icon: Notebook,
+    id: 3,
+    name: '个人中心',
+    index: '/home/users',
+    icon: User,
     children: [
       {
-        id: 102,
-        name: '图书列表',
-        index: '/home/book'
+        id: 101,
+        name: '借阅历史',
+        index: '/home/history'
       },
       {
-        id: 103,
-        name: '图书推荐',
-        index: '/book/recommendation'
+        id: 102,
+        name: '个人推荐',
+        index: '/home/books'
       }
     ]
   }

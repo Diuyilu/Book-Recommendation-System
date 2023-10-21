@@ -1,5 +1,7 @@
 from flask import Flask
-from flask-cors import
+from flask_cors import CORS
+from flask_login import LoginManager
+
 import configs
 from extension import db
 from test import test_bp
@@ -10,6 +12,8 @@ app = Flask(__name__)
 app.config.from_object(configs)
 # db绑定app
 db.init_app(app)
+CORS(app, supports_credentials=True)
+login_manager = LoginManager(app)
 
 app.register_blueprint(test_bp)
 app.register_blueprint(user_bp)

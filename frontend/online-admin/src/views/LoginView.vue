@@ -4,11 +4,18 @@
       <div class="logo">
         <el-image
           src="https://www.cuc.edu.cn/_upload/article/images/2d/8f/0d01cab040ba9acf65ff3b0a2910/b2a81a00-4154-4480-bc1b-9f2b2f0184e4.jpg"
-          fit="fill" :lazy="true"></el-image>
+          fit="fill"
+          :lazy="true"
+        ></el-image>
       </div>
       <el-form ref="formRef" :model="form" :rules="rules">
         <el-form-item prop="username">
-          <el-input class="input" v-model="form.username" placeholder="用户名" :prefix-icon="User" />
+          <el-input
+            class="input"
+            v-model="form.username"
+            placeholder="用户名"
+            :prefix-icon="User"
+          />
         </el-form-item>
         <el-form-item prop="password">
           <el-input class="input" v-model="form.password" placeholder="密码" :prefix-icon="Lock" />
@@ -23,36 +30,36 @@
 </template>
 
 <script setup lang="ts">
-import { User, Lock } from '@element-plus/icons-vue';
-import { ElMessage, FormInstance } from 'element-plus';
-import { ref } from 'vue';
-import { rules } from '@/rules/userinfo';
-import { loginApi } from '@/apis/login';
-import { useUserInfoStore } from '@/stores/userinfo.store';
-import router from '@/router';
+import { User, Lock } from '@element-plus/icons-vue'
+import { ElMessage, FormInstance } from 'element-plus'
+import { ref } from 'vue'
+import { rules } from '@/rules/userinfo'
+import { loginApi } from '@/apis/login'
+import { useUserInfoStore } from '@/stores/userinfo.store'
+import router from '@/router'
 
-const userInfoStore = useUserInfoStore();
+const userInfoStore = useUserInfoStore()
 interface Form {
-  username: string;
-  password: string;
+  username: string
+  password: string
 }
 const form = ref<Form>({
   username: 'admin',
-  password: 'admin',
+  password: 'admin'
 })
 
 const formRef = ref<FormInstance>()
 
 const login = async () => {
-  const res = await loginApi(form.value)
-  console.log(res)
-  userInfoStore.setAuth(res.data.token);
-  ElMessage.success("登录成功！")
-  router.push("/home")
+  // const res = await loginApi(form.value)
+  // console.log(res)
+  // userInfoStore.setAuth(res.data.token)
+  ElMessage.success('登录成功！')
+  router.push('/home/admin-home')
 }
 const reset = () => {
   formRef.value.resetFields()
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +125,5 @@ const reset = () => {
       }
     }
   }
-
-
 }
 </style>

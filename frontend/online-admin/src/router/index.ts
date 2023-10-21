@@ -7,7 +7,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home/admin-home'
     },
     {
       path: '/home',
@@ -20,14 +20,19 @@ const router = createRouter({
           component: () => import('@/components/home/AdminHome.vue')
         },
         {
-          path: 'users',
-          name: 'users',
-          component: () => import('@/components/users/UserManagement.vue')
+          path: 'history',
+          name: 'history',
+          component: () => import('@/components/history/HistoryManagement.vue')
         },
         {
           path: 'books',
           name: 'books',
           component: () => import('@/components/books/BookManagement.vue')
+        },
+        {
+          path: 'datav',
+          name: 'datav',
+          component: () => import('@/components/datav/DatavManagement.vue')
         }
       ]
     },

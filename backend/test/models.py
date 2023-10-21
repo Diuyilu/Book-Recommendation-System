@@ -7,7 +7,6 @@ class BookTest(db.Model):
     book_link = db.Column(db.String(255), info='作品链接')
     book_title = db.Column(db.String(255), info='作品名')
     book_subtitle = db.Column(db.String(255), info='副标题')
-    book_id = db.Column(db.String(255), info='作品ID')
     author = db.Column(db.String(255), info='作者')
     press = db.Column(db.String(255), info='出版社')
     original_title = db.Column(db.String(255), info='原作名')
@@ -26,3 +25,4 @@ class BookTest(db.Model):
     author_introduction = db.Column(db.String(255), info='作者简介')
     menu = db.Column(db.String(255), info='目录')
     label = db.Column(db.String(255), info='标签')
+    db_id = db.Column(db.String(255), info='豆瓣ID')

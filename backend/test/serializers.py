@@ -11,7 +11,6 @@ def booktest_serializer(booktestinfo):
             'book_link': book.book_link,
             'book_title': book.book_title,
             'book_subtitle': book.book_subtitle,
-            'book_id': book.book_id,
             'author': book.author,
             'press': book.press,
             'original_title': book.original_title,
@@ -29,7 +28,8 @@ def booktest_serializer(booktestinfo):
             'content_validity': book.content_validity,
             'author_introduction': book.author_introduction,
             'menu': book.menu,
-            'label': book.label
+            'label': book.label,
+            'db_id': book.db_id
         }
         booktest_list.append(booktest_dict)
     return jsonify({'booktest_list': booktest_list, "status": 1})

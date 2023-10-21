@@ -1,5 +1,5 @@
 <template>
-  <div>users</div>
+  <div>pie</div>
 </template>
 
 <script setup lang="ts"></script>
