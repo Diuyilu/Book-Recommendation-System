@@ -77,7 +77,7 @@ const menulist: MenuItem[] = [
       {
         id: 102,
         name: '个人推荐',
-        index: '/home/books'
+        index: '/home/recommend'
       }
     ]
   }

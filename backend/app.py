@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_login import LoginManager
 
 import configs
+from book import book_bp
 from extension import db
 from test import test_bp
 from user import user_bp
@@ -17,6 +18,7 @@ login_manager = LoginManager(app)
 
 app.register_blueprint(test_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(book_bp)
 
 @app.route('/')
 def hello_world():  # put application's code here

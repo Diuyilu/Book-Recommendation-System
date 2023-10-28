@@ -25,9 +25,9 @@ const router = createRouter({
           component: () => import('@/components/history/HistoryManagement.vue')
         },
         {
-          path: 'books',
-          name: 'books',
-          component: () => import('@/components/books/BookManagement.vue')
+          path: 'recommend',
+          name: 'recommend',
+          component: () => import('@/components/recommend/RecommendManagement.vue')
         },
         {
           path: 'datav',
