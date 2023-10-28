@@ -6,7 +6,7 @@ def book_serializer(bookinfo):
     for book in bookinfo:
         booktest_dict = {
             'collection_time': book.collection_time,
-            'image_address': book.image_address,
+            'image_address': 'https://images.weserv.nl/?url=' + book.image_address[7:],
             'book_link': book.book_link,
             'book_title': book.book_title,
             'book_subtitle': book.book_subtitle,

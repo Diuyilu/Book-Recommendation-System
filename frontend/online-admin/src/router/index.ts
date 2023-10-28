@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { el } from 'element-plus/es/locale'
+import { useUserInfoStore } from '@/stores/userinfo.store'
 
+const userinfoStore = useUserInfoStore()
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,6 +49,10 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      meta: {
+        // noAuth: true代表这个页面不需要拦截
+        noAuth: true
+      },
       component: () => import('../views/LoginView.vue')
     }
   ]
@@ -56,11 +62,12 @@ const router = createRouter({
 //to 即将进入目标路由对象，包含路径、参数、查询参数等
 //from 当前导航正要离开的路由对象，包含当前的路由信息
 //next 函数，用于控制导航行为，他可以接受一个参数，用于指定导航的目标路由
-// router.beforeEach((to, from, next) => {
-//   // if(userlogin){
-//   //   next()
-//   // } else {
-//   //   next('/login')
-//   // }
-// })
+router.beforeEach((to, from, next) => {
+  if(to.meta.noAuth || userinfoStore.authFromLocal){
+    next()
+  } else {
+    router.push('/login')
+  }
+})
+
 export default router

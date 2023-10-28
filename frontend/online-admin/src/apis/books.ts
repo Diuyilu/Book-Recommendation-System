@@ -1,6 +1,7 @@
 import { get, post } from './api'
 
-export const getBookInfoAPI = (data) => get('/teacher_portrait/get_book_info', data)
+// export const getBookInfoAPI = (data) => get('/teacher_portrait/get_book_info', data)
+export const getBookInfoAPI = () => get('/api/api/get_book_info')
 
 // 书籍数据结构
 export interface BookData {

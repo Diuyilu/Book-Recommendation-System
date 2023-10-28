@@ -23,12 +23,13 @@ class UserLogin(Resource):
         if (user is not None) and (user.verifyPassword(password)):
             login_user(user)
             token = genToken({'username': username, 'password': password})
-            returnData = {'code': 0, 'msg': 'success', 'data': {'token': token}}
+            returnData = {"succeed": True, 'code': 200, 'message': '成功', 'data': {'token': token}}
             print(returnData)
             # return json.dumps(returnData), 200
             return jsonify(returnData) # 200
         else:
-            returnData = {'code': 1, 'msg': 'success', 'data': 'username or password is not correct'}
+            # returnData = {'code': 1, 'message': 'success', 'data': 'username or password is not correct'}
+            returnData = {'code': 2001, 'message': '用户名或密码错误', "succeed": False}
             # return json.dumps(returnData), 200
             print(returnData)
             return jsonify(returnData) # 200

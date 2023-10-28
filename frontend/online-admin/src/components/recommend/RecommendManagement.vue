@@ -1,28 +1,24 @@
 <template>
   <div>
-    <el-row style="height: 840px">
+    <el-row style="height: 40px">
       <!--<search-bar></search-bar>-->
-      <el-tooltip effect="dark" placement="right" v-for="item in books" :key="item.id">
+      <el-tooltip effect="dark" placement="right" v-for="item in message" :key="item.id">
         <template #content>
-          <p style="font-size: 14px; margin-bottom: 6px">{{ item.title }}</p>
+          <p style="font-size: 14px; margin-bottom: 6px">{{ item.book_title }}</p>
           <p style="font-size: 13px; margin-bottom: 6px">
-            <span>{{ item.author }}</span> / <span>{{ item.date }}</span> /
+            <span>{{ item.author }}</span> / <span>{{ item.collection_time }}</span> /
             <span>{{ item.press }}</span>
           </p>
-          <p style="width: 300px" class="abstract">{{ item.abs }}</p>
+          <p style="width: 300px" class="abstract">{{ item.content_validity }} ……</p>
         </template>
-        <el-card
-          style="width: 135px; margin-bottom: 20px; height: 233px; float: left; margin-right: 15px"
-          class="book"
-          bodyStyle="padding:10px"
-          shadow="hover"
-        >
+        <el-card style="width: 135px; margin-bottom: 20px; height: 233px; float: left; margin-right: 15px" class="book"
+          bodyStyle="padding:10px" shadow="hover">
           <div class="cover">
-            <img :src="item.cover" alt="封面" />
+            <img :src="item.image_address" alt="封面" />
           </div>
           <div class="info">
             <div class="title">
-              <a href="">{{ item.title }}</a>
+              <a :href="item.book_link" target="_Blank">{{ item.book_title }}</a>
             </div>
           </div>
           <div class="author">{{ item.author }}</div>
@@ -36,8 +32,29 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, reactive, ref, defineExpose } from 'vue'
-import { BookData } from '@/apis/books'
+import { toRefs, reactive, ref, defineExpose, onMounted } from 'vue'
+import { BookData, getBookInfoAPI } from '@/apis/books'
+
+const message = ref()
+
+// 调用getBookInfoAPI获取数据
+const get_book_info = async () => {
+  const res = await getBookInfoAPI()
+  console.log(res.book_list)
+  message.value = res.book_list
+}
+
+// 把getBookInfoAPI的结果赋值给books
+// const books = get_book_info()
+
+onMounted(() => {
+  get_book_info()
+})
+
+// const temp_data = get_book_info()
+
+
+
 
 const books = [
   {
