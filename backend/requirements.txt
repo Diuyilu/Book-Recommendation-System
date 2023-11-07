@@ -1,0 +1,4 @@
+sqlalchemy~=1.4.25
+flask~=2.0.2
+werkzeug~=2.0.2
+pyjwt~=2.1.0

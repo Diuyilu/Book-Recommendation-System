@@ -35,6 +35,11 @@ const router = createRouter({
           path: 'datav',
           name: 'datav',
           component: () => import('@/components/datav/DatavManagement.vue')
+        },
+        {
+          path: 'booksearch',
+          name: 'booksearch',
+          component: () => import('@/components/books/BookSearch.vue')
         }
       ]
     },

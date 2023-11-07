@@ -1,21 +1,8 @@
 <template>
   <div id="menu">
-    <el-menu
-      active-text-color="#fff"
-      background-color="#2b2c44"
-      class="el-menu-vertical-demo"
-      :default-active="defaultActive"
-      text-color="#c1c1c1"
-      router
-      @open="handleOpen"
-      @close="handleClose"
-    >
-      <component
-        :is="item.children ? ElSubMenu : ElMenuItem"
-        v-for="item in menulist"
-        :key="item.id"
-        :index="item.index"
-      >
+    <el-menu active-text-color="#fff" background-color="#2b2c44" class="el-menu-vertical-demo"
+      :default-active="defaultActive" text-color="#c1c1c1" router @open="handleOpen" @close="handleClose">
+      <component :is="item.children ? ElSubMenu : ElMenuItem" v-for="item in menulist" :key="item.id" :index="item.index">
         <template v-if="item.children" #title>
           <el-icon v-if="item.icon">
             <component :is="item.icon"></component>
@@ -38,7 +25,7 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { House, User, Platform } from '@element-plus/icons-vue'
+import { House, User, Platform, Collection } from '@element-plus/icons-vue'
 import { ElSubMenu, ElMenuItem } from 'element-plus'
 import { ref } from 'vue'
 import router from '@/router'
@@ -80,6 +67,12 @@ const menulist: MenuItem[] = [
         index: '/home/recommend'
       }
     ]
+  },
+  {
+    id: 4,
+    name: '图书检索',
+    icon: Collection,
+    index: '/home/booksearch'
   }
 ]
 const handleOpen = (key: string, keyPath: string[]) => {

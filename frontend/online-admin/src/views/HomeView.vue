@@ -21,6 +21,9 @@
 <script setup lang="ts">
 import AdminHeader from '@/components/layout/AdminHeader.vue'
 import AdminMenu from '@/components/layout/AdminMenu.vue'
+import { useUserInfoStore } from '@/stores/userinfo.store';
+
+const userInfoStore = useUserInfoStore()
 </script>
 
 <style lang="scss" scoped>
