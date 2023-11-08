@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { el } from 'element-plus/es/locale'
 import { useUserInfoStore } from '@/stores/userinfo.store'
+import { RouterView } from 'vue-router'
 
 const userinfoStore = useUserInfoStore()
 const router = createRouter({
@@ -13,33 +14,64 @@ const router = createRouter({
     },
     {
       path: '/home',
+      redirect: '/home/admin-home',
       name: 'home',
       component: HomeView,
+      meta: {
+        title: '图书推荐系统'
+      },
       children: [
         {
           path: 'admin-home',
           name: 'admin-home',
-          component: () => import('@/components/home/AdminHome.vue')
+          component: () => import('@/components/home/AdminHome.vue'),
+          meta: {
+            title: '首页'
+          }
         },
         {
-          path: 'history',
-          name: 'history',
-          component: () => import('@/components/history/HistoryManagement.vue')
-        },
-        {
-          path: 'recommend',
-          name: 'recommend',
-          component: () => import('@/components/recommend/RecommendManagement.vue')
+          path: 'users',
+          name: 'users',
+          component: RouterView,
+          meta: {
+            title: '个人中心'
+          },
+          children: [
+            {
+              path: 'history',
+              name: 'history',
+              component: () => import('@/components/history/HistoryManagement.vue'),
+              meta: {
+                title: '借阅历史',
+                parentRouteName: 'users'
+              }
+            },
+            {
+              path: 'recommend',
+              name: 'recommend',
+              component: () => import('@/components/recommend/RecommendManagement.vue'),
+              meta: {
+                title: '个人推荐',
+                parentRouteName: 'users'
+              }
+            }
+          ]
         },
         {
           path: 'datav',
           name: 'datav',
-          component: () => import('@/components/datav/DatavManagement.vue')
+          component: () => import('@/components/datav/DatavManagement.vue'),
+          meta: {
+            title: '数据大屏'
+          }
         },
         {
           path: 'booksearch',
           name: 'booksearch',
-          component: () => import('@/components/books/BookSearch.vue')
+          component: () => import('@/components/books/BookSearch.vue'),
+          meta: {
+            title: '图书检索'
+          }
         }
       ]
     },
@@ -68,7 +100,7 @@ const router = createRouter({
 //from 当前导航正要离开的路由对象，包含当前的路由信息
 //next 函数，用于控制导航行为，他可以接受一个参数，用于指定导航的目标路由
 router.beforeEach((to, from, next) => {
-  if(to.meta.noAuth || userinfoStore.authFromLocal){
+  if (to.meta.noAuth || userinfoStore.authFromLocal) {
     next()
   } else {
     router.push('/login')

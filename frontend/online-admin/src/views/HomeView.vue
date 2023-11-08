@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <el-container>
-      <el-header>
+      <el-header class="head">
         <AdminHeader></AdminHeader>
       </el-header>
       <el-container>
@@ -10,9 +10,17 @@
             <AdminMenu></AdminMenu>
           </el-aside>
         </el-affix>
-        <el-main>
+        <el-container>
+          <el-header class="breadcrumb">
+            <AdminBreadcrumb></AdminBreadcrumb>
+          </el-header>
+          <el-main>
+            <RouterView></RouterView>
+          </el-main>
+        </el-container>
+        <!-- <el-main>
           <RouterView></RouterView>
-        </el-main>
+        </el-main> -->
       </el-container>
     </el-container>
   </div>
@@ -21,7 +29,8 @@
 <script setup lang="ts">
 import AdminHeader from '@/components/layout/AdminHeader.vue'
 import AdminMenu from '@/components/layout/AdminMenu.vue'
-import { useUserInfoStore } from '@/stores/userinfo.store';
+import AdminBreadcrumb from '@/components/layout/AdminBreadcrumb.vue'
+import { useUserInfoStore } from '@/stores/userinfo.store'
 
 const userInfoStore = useUserInfoStore()
 </script>
@@ -31,7 +40,7 @@ const userInfoStore = useUserInfoStore()
   min-height: 100vh;
 }
 
-.el-header {
+.head {
   background-color: #2b2c43;
   padding: 0;
 }
@@ -39,5 +48,11 @@ const userInfoStore = useUserInfoStore()
 .el-aside {
   background-color: #2b2c43;
   min-height: calc(100vh - 60px);
+}
+
+.breadcrumb {
+  background-color: #fff;
+  padding-left: 20px;
+  height: 15px;
 }
 </style>

@@ -26,9 +26,13 @@ var url =
 <style lang="scss" scoped>
 .iframe-container {
   background-color: #050a10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 #main {
-  width: 1700px;
-  height: 900px;
+  width: calc(100vw - 200px);
+  min-height: calc(100vh - 115px);
 }
 </style>

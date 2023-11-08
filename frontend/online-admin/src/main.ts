@@ -15,12 +15,12 @@ const app = createApp(App)
 // app.mount('#app')
 
 async function asyncRegister() {
-    const createPinia = (await import('pinia')).createPinia
-    app.use(createPinia())
-    const router = (await import('@/router')).default
-    app.use(router)
+  const createPinia = (await import('pinia')).createPinia
+  app.use(createPinia())
+  const router = (await import('@/router')).default
+  app.use(router)
 
-    app.mount('#app')
+  app.mount('#app')
 }
 
 asyncRegister()

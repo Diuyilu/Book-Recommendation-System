@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AdminBreadcrumb: typeof import('./src/components/layout/AdminBreadcrumb.vue')['default']
     AdminHeader: typeof import('./src/components/layout/AdminHeader.vue')['default']
     AdminHome: typeof import('./src/components/home/AdminHome.vue')['default']
     AdminMenu: typeof import('./src/components/layout/AdminMenu.vue')['default']
@@ -14,10 +15,13 @@ declare module 'vue' {
     BarChart: typeof import('./src/components/home/adminHome/BarChart.vue')['default']
     BookManagement: typeof import('./src/components/books/BookManagement.vue')['default']
     BookSearch: typeof import('./src/components/books/BookSearch.vue')['default']
+    Breadcrumb: typeof import('./src/components/layout/Breadcrumb.vue')['default']
     DatavManagement: typeof import('./src/components/datav/DatavManagement.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElContainer: typeof import('element-plus/es')['ElContainer']
@@ -41,5 +45,6 @@ declare module 'vue' {
     RecommendManagementOrigin: typeof import('./src/components/recommend/RecommendManagementOrigin.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UsersManagement: typeof import('./src/components/users/UsersManagement.vue')['default']
   }
 }
