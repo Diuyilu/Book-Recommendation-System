@@ -6,13 +6,17 @@
         <template #content>
           <p style="font-size: 14px; margin-bottom: 6px">{{ item.book_title }}</p>
           <p style="font-size: 13px; margin-bottom: 6px">
-            <span>{{ item.author }}</span> / <span>{{ item.collection_time }}</span> /
+            <span>{{ item.author }}</span> / <span>{{ item.pubdate }}</span> /
             <span>{{ item.press }}</span>
           </p>
           <p style="width: 300px" class="abstract">{{ item.content_validity }} ……</p>
         </template>
-        <el-card style="width: 135px; margin-bottom: 20px; height: 233px; float: left; margin-right: 15px" class="book"
-          bodyStyle="padding:10px" shadow="hover">
+        <el-card
+          style="width: 135px; margin-bottom: 20px; height: 233px; float: left; margin-right: 15px"
+          class="book"
+          bodyStyle="padding:10px"
+          shadow="hover"
+        >
           <div class="cover">
             <img :src="item.image_address" alt="封面" />
           </div>
@@ -52,9 +56,6 @@ onMounted(() => {
 })
 
 // const temp_data = get_book_info()
-
-
-
 
 const books = [
   {

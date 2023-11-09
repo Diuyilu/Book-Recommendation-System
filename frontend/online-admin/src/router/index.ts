@@ -72,6 +72,14 @@ const router = createRouter({
           meta: {
             title: '图书检索'
           }
+        },
+        {
+          path: 'bookinfo',
+          name: 'bookinfo',
+          component: () => import('@/components/books/BookInfo.vue'),
+          meta: {
+            title: '图书信息'
+          }
         }
       ]
     },

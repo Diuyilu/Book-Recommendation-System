@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { House, User, Platform, Collection } from '@element-plus/icons-vue'
+import { House, User, Platform, Collection, MessageBox } from '@element-plus/icons-vue'
 import { ElSubMenu, ElMenuItem } from 'element-plus'
 import { ref } from 'vue'
 import router from '@/router'
@@ -86,6 +86,12 @@ const menulist: MenuItem[] = [
     name: '图书检索',
     icon: Collection,
     index: '/home/booksearch'
+  },
+  {
+    id: 5,
+    name: '图书信息',
+    icon: MessageBox,
+    index: '/home/bookinfo'
   }
 ]
 const handleOpen = (key: string, keyPath: string[]) => {

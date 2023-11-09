@@ -12,7 +12,7 @@ class Book(db.Model):
     original_title = db.Column(db.String(255), info='原作名')
     translator = db.Column(db.String(255), info='译者')
     translator_introduction = db.Column(db.String(255), info='译者简介')
-    publication_year = db.Column(db.String(255) ,info='出版年')
+    pubdate = db.Column(db.String(255) ,info='出版日')
     pages = db.Column(db.String(255), info='页数')
     price = db.Column(db.String(255), info='定价')
     binding = db.Column(db.String(255), info='装帧')
