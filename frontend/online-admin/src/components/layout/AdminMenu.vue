@@ -1,21 +1,8 @@
 <template>
   <div id="menu">
-    <el-menu
-      active-text-color="#fff"
-      background-color="#2b2c44"
-      class="el-menu-vertical-demo"
-      :default-active="defaultActive"
-      text-color="#c1c1c1"
-      router
-      @open="handleOpen"
-      @close="handleClose"
-    >
-      <component
-        :is="item.children ? ElSubMenu : ElMenuItem"
-        v-for="item in menulist"
-        :key="item.id"
-        :index="item.index"
-      >
+    <el-menu active-text-color="#fff" background-color="#0f1921" class="el-menu-vertical-demo"
+      :default-active="defaultActive" text-color="#c1c1c1" router @open="handleOpen" @close="handleClose">
+      <component :is="item.children ? ElSubMenu : ElMenuItem" v-for="item in menulist" :key="item.id" :index="item.index">
         <template v-if="item.children" #title>
           <el-icon v-if="item.icon">
             <component :is="item.icon"></component>

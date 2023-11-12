@@ -16,8 +16,6 @@ declare module 'vue' {
     BookInfo: typeof import('./src/components/books/BookInfo.vue')['default']
     BookManagement: typeof import('./src/components/books/BookManagement.vue')['default']
     BookSearch: typeof import('./src/components/books/BookSearch.vue')['default']
-    Breadcrumb: typeof import('./src/components/layout/Breadcrumb.vue')['default']
-    copy: typeof import('./src/components/books/BookManagement copy.vue')['default']
     DatavManagement: typeof import('./src/components/datav/DatavManagement.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -49,8 +47,6 @@ declare module 'vue' {
     RecommendManagementOrigin: typeof import('./src/components/recommend/RecommendManagementOrigin.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    StarRatings: typeof import('./src/components/books/bookinfo/StarRatings.vue')['default']
-    TemplateView: typeof import('./src/components/books/bookinfo/TemplateView.vue')['default']
     UsersManagement: typeof import('./src/components/users/UsersManagement.vue')['default']
   }
 }

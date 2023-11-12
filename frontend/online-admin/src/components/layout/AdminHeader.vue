@@ -1,8 +1,10 @@
 <template>
   <div id="header">
-    <div class="logo-box">中国传媒大学</div>
+    <div class="logo-box">
+      <el-image :src=cuclogo fit="fill" style="max-width: 180px;" />
+    </div>
     <div class="right-box">
-      <div class="title">图书推荐系统</div>
+      <div class="title" style="margin-bottom: 20px;margin-left: 20px;">图书个性化推荐系统</div>
       <div class="avater-box">
         <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
       </div>
@@ -10,11 +12,13 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import cuclogo from '../../assets/cuclogo1.png'
+</script>
 
 <style lang="scss" scoped>
 #header {
-  background-color: #2b2c44;
+  background-color: #0f1921;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -25,7 +29,7 @@
     line-height: 60px;
     font-size: 22px;
     font-weight: bold;
-    color: #e73267;
+    color: #fff;
   }
 
   .right-box {

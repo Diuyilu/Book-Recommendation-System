@@ -41,13 +41,13 @@ const userInfoStore = useUserInfoStore()
 }
 
 .head {
-  background-color: #2b2c43;
+  background-color: #0f1921;
   padding: 0;
   height: 60px;
 }
 
 .el-aside {
-  background-color: #2b2c43;
+  background-color: #0f1921;
   min-height: calc(100vh - 60px);
   // min-height: 100vh;
 }
@@ -58,6 +58,7 @@ const userInfoStore = useUserInfoStore()
   height: 22px;
   margin-top: 5px;
 }
+
 .el-main {
   max-width: calc(100vw - 210px);
 }

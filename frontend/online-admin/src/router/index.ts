@@ -11,7 +11,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home/admin-home'
+      redirect: '/login'
     },
     {
       path: '/home',
