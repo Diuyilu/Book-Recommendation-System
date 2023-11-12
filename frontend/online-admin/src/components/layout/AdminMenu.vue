@@ -57,12 +57,12 @@ const menulist: MenuItem[] = [
     index: '/home/admin-home',
     icon: House
   },
-  {
-    id: 2,
-    name: '数据大屏',
-    index: '/home/datav',
-    icon: Platform
-  },
+  // {
+  //   id: 2,
+  //   name: '数据大屏',
+  //   index: '/home/datav',
+  //   icon: Platform
+  // },
   {
     id: 3,
     name: '个人中心',
@@ -86,13 +86,13 @@ const menulist: MenuItem[] = [
     name: '图书检索',
     icon: Collection,
     index: '/home/booksearch'
-  },
-  {
-    id: 5,
-    name: '图书信息',
-    icon: MessageBox,
-    index: '/home/bookinfo'
   }
+  // {
+  //   id: 5,
+  //   name: '图书信息',
+  //   icon: MessageBox,
+  //   index: '/home/bookinfo'
+  // }
 ]
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)

@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <el-row style="height: 40px">
+  <router-view></router-view>
+  <div v-show="flag">
+    <el-row style="height: 40px" class="book_list">
       <!--<search-bar></search-bar>-->
       <el-tooltip effect="dark" placement="right" v-for="item in message" :key="item.id">
         <template #content>
@@ -17,12 +18,15 @@
           bodyStyle="padding:10px"
           shadow="hover"
         >
-          <div class="cover">
+          <div class="cover" @click="push_router(item.db_id)">
             <img :src="item.image_address" alt="封面" />
           </div>
           <div class="info">
-            <div class="title">
-              <a :href="item.book_link" target="_Blank">{{ item.book_title }}</a>
+            <div class="title" @click="push_router(item.db_id)">
+              <!-- <a :href="item.book_link" target="_Blank" @click="push_router(item.db_id)">{{
+                item.book_title
+              }}</a> -->
+              <a target="_Blank" style="color: cadetblue; cursor: pointer">{{ item.book_title }}</a>
             </div>
           </div>
           <div class="author">{{ item.author }}</div>
@@ -36,10 +40,30 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, reactive, ref, defineExpose, onMounted } from 'vue'
+import { toRefs, reactive, ref, defineExpose, onMounted, watch } from 'vue'
 import { BookData, getBookInfoAPI } from '@/apis/books'
+import { useRouter } from 'vue-router'
 
 const message = ref()
+const router = useRouter()
+
+let flag = true
+
+function change_flag(x) {
+  flag = x
+}
+
+// 使用watch监听路由，让flag发声变化，当路由变为booksearchinfo时，flag变为false，此时不显示搜索框。当路由变为booksearch时，flag变为true，此时显示搜索框
+watch(
+  () => router.currentRoute.value.name,
+  (to, from) => {
+    if (to === 'recommendinfo') {
+      change_flag(false)
+    } else if (to === 'recommend') {
+      change_flag(true)
+    }
+  }
+)
 
 // 调用getBookInfoAPI获取数据
 const get_book_info = async () => {
@@ -74,6 +98,26 @@ defineExpose({
   data: () => ({ books })
 })
 
+// function push_router(book_id) {
+//   console.log(book_id)
+//   router.push({
+//     name: 'bookinfo',
+//     params: {
+//       book_id: JSON.stringify(book_id)
+//     }
+//   })
+// }
+
+function push_router(book_id) {
+  console.log(book_id)
+  router.push({
+    name: 'recommendinfo',
+    query: {
+      book_id: JSON.stringify(book_id)
+    }
+  })
+}
+
 // export default {
 //   // name: 'Books',
 //   setup() {
@@ -95,6 +139,12 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
+.book_list {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .cover {
   width: 115px;
   height: 172px;

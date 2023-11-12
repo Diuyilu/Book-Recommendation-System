@@ -43,16 +43,22 @@ const userInfoStore = useUserInfoStore()
 .head {
   background-color: #2b2c43;
   padding: 0;
+  height: 60px;
 }
 
 .el-aside {
   background-color: #2b2c43;
   min-height: calc(100vh - 60px);
+  // min-height: 100vh;
 }
 
 .breadcrumb {
   background-color: #fff;
   padding-left: 20px;
-  height: 15px;
+  height: 22px;
+  margin-top: 5px;
+}
+.el-main {
+  max-width: calc(100vw - 210px);
 }
 </style>

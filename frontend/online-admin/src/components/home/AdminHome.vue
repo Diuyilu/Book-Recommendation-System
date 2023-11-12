@@ -21,7 +21,7 @@ import LineChart from './adminHome/LineChart.vue'
   box-shadow: var(--el-box-shadow-light);
   .item {
     width: 50%;
-    height: calc((100vh - 120px) / 2);
+    height: calc((100vh - 130px) / 2);
     min-height: 360px;
     padding: 20px;
     border: 1px solid #f5f5f5;

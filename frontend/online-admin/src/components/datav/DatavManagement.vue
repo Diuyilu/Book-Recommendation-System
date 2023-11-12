@@ -32,7 +32,7 @@ var url =
   justify-content: center;
 }
 #main {
-  width: calc(100vw - 200px);
+  width: calc(100vw - 220px);
   min-height: calc(100vh - 115px);
 }
 </style>

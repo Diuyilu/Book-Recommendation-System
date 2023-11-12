@@ -1,6 +1,10 @@
 <template>
   <el-breadcrumb :separator-icon="ArrowRight" class="bread">
-    <el-breadcrumb-item v-for="item in routers" :key="item.path" :to="{ path: item?.path }">
+    <el-breadcrumb-item
+      v-for="item in routers"
+      :key="item.path"
+      :to="{ path: item?.path, query: { flag: 'father' } }"
+    >
       {{ item?.meta?.title }}
     </el-breadcrumb-item>
     <!-- <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import BookInfo from '../components/books/BookInfo.vue'
 import { el } from 'element-plus/es/locale'
 import { useUserInfoStore } from '@/stores/userinfo.store'
 import { RouterView } from 'vue-router'
@@ -17,14 +18,14 @@ const router = createRouter({
       redirect: '/home/admin-home',
       name: 'home',
       component: HomeView,
-      meta: {
-        title: '图书推荐系统'
-      },
+      // meta: {
+      //   title: '图书推荐系统'
+      // },
       children: [
         {
           path: 'admin-home',
           name: 'admin-home',
-          component: () => import('@/components/home/AdminHome.vue'),
+          component: () => import('@/components/datav/DatavManagement.vue'),
           meta: {
             title: '首页'
           }
@@ -53,7 +54,18 @@ const router = createRouter({
               meta: {
                 title: '个人推荐',
                 parentRouteName: 'users'
-              }
+              },
+              children: [
+                {
+                  path: 'recommendinfo',
+                  name: 'recommendinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'recommend'
+                  }
+                }
+              ]
             }
           ]
         },
@@ -71,12 +83,23 @@ const router = createRouter({
           component: () => import('@/components/books/BookSearch.vue'),
           meta: {
             title: '图书检索'
-          }
+          },
+          children: [
+            {
+              path: 'booksearchinfo',
+              name: 'booksearchinfo',
+              component: BookInfo,
+              meta: {
+                title: '图书信息',
+                parentRouteName: 'booksearch'
+              }
+            }
+          ]
         },
         {
           path: 'bookinfo',
           name: 'bookinfo',
-          component: () => import('@/components/books/BookInfo.vue'),
+          component: BookInfo,
           meta: {
             title: '图书信息'
           }

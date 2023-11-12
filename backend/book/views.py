@@ -18,8 +18,15 @@ class SearchBookInfo(Resource):
     def post(self):
         data = b_to_dict(request.data)
         value = data['value']
-        print(value)
-        book = Book.query.filter(or_(Book.book_title == value,Book.author == value)).order_by(func.random()).limit(10)
+        book = Book.query.filter(or_(Book.book_title.like('%'+ value +'%'),Book.author.like('%'+ value +'%'))).order_by(func.random()).all()
+        return book_serializer(book)
+
+class GetBookInfoById(Resource):
+    def post(self):
+        data = request.get_json()
+        # data = b_to_dict(request.data)
+        db_id = data['db_id']
+        book = Book.query.filter(Book.db_id == str(db_id)).all()
         return book_serializer(book)
 
 def b_to_dict(b_data):
