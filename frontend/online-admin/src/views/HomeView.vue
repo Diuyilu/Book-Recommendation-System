@@ -1,15 +1,17 @@
 <template>
   <div id="home">
     <el-container>
-      <el-header class="head">
-        <AdminHeader></AdminHeader>
-      </el-header>
+      <el-affix>
+        <el-aside>
+          <AdminMenu></AdminMenu>
+        </el-aside>
+      </el-affix>
       <el-container>
-        <el-affix>
-          <el-aside width="200px">
-            <AdminMenu></AdminMenu>
-          </el-aside>
-        </el-affix>
+<!--        <el-affix>-->
+<!--          <el-header class="head">-->
+<!--            <AdminHeader></AdminHeader>-->
+<!--          </el-header>-->
+<!--        </el-affix>-->
         <el-container>
           <el-header class="breadcrumb">
             <AdminBreadcrumb></AdminBreadcrumb>
@@ -41,23 +43,30 @@ const userInfoStore = useUserInfoStore()
 }
 
 .head {
-  background-color: #2b2c43;
+  background-color: #0f1921;
   padding: 0;
   height: 60px;
 }
 
 .el-aside {
-  background-color: #2b2c43;
-  min-height: calc(100vh - 60px);
-  // min-height: 100vh;
+  background-color: #0f1921;
+  width: 300px;
+  height: 100%;
+  min-height: 100vh;
+  .el-menu-vertical-demo {
+    --font-size: 10px;
+  };
+  //min-height: calc(100vh - 60px);
+  //text
 }
 
 .breadcrumb {
   background-color: #fff;
   padding-left: 20px;
-  height: 22px;
+  height: 26px;
   margin-top: 5px;
 }
+
 .el-main {
   max-width: calc(100vw - 210px);
 }

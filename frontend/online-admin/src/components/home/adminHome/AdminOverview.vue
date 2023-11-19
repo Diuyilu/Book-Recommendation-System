@@ -2,7 +2,6 @@
   <div id="overview">
     <div class="userinfo">
       <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-      <span class="username">管理员</span>
     </div>
     <div class="overview-list">
       <div class="overview-item" v-for="item in overviewData.allData" :key="item.id">

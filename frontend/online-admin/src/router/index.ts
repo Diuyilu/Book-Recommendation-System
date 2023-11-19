@@ -11,7 +11,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home/admin-home'
+      redirect: '/login'
     },
     {
       path: '/home',
@@ -25,7 +25,7 @@ const router = createRouter({
         {
           path: 'admin-home',
           name: 'admin-home',
-          component: () => import('@/components/datav/DatavManagement.vue'),
+          component: () => import('@/components/home/AdminHome.vue'),
           meta: {
             title: '首页'
           }
@@ -78,20 +78,54 @@ const router = createRouter({
           }
         },
         {
-          path: 'booksearch',
-          name: 'booksearch',
-          component: () => import('@/components/books/BookSearch.vue'),
+          path: 'books',
+          name: 'books',
+          component: RouterView,
           meta: {
-            title: '图书检索'
+            title: '全部书籍'
           },
           children: [
             {
-              path: 'booksearchinfo',
-              name: 'booksearchinfo',
-              component: BookInfo,
+              path: 'booksearch',
+              name: 'booksearch',
+              component: () => import('@/components/books/BookSearch.vue'),
               meta: {
-                title: '图书信息',
-                parentRouteName: 'booksearch'
+                title: '图书检索'
+              },
+              children: [
+                {
+                  path: 'booksearchinfo',
+                  name: 'booksearchinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'booksearch'
+                  }
+                }
+              ]
+            },
+            {
+              path: 'newbook',
+              name: 'newbook',
+              component: () => import('@/components/books/NewBook.vue'),
+              meta: {
+                title: '新书速递'
+              }
+            },
+            {
+              path: 'popularbook',
+              name: 'popularbook',
+              component: () => import('@/components/books/PopularBook.vue'),
+              meta: {
+                title: '热门书籍'
+              }
+            },
+            {
+              path: 'bookclass',
+              name: 'bookclass',
+              component: () => import('@/components/books/BookClass.vue'),
+              meta: {
+                title: '图书分类'
               }
             }
           ]

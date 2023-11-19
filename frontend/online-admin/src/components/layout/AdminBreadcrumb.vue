@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb :separator-icon="ArrowRight" class="bread">
-    <el-breadcrumb-item
+    <el-breadcrumb-item style="font-size:18px"
       v-for="item in routers"
       :key="item.path"
       :to="{ path: item?.path, query: { flag: 'father' } }"

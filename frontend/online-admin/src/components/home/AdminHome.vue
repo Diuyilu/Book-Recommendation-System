@@ -1,17 +1,11 @@
 <template>
   <div class="wrap">
-    <AdminOverview class="item"></AdminOverview>
-    <BarChart class="item"></BarChart>
-    <PieChart class="item"></PieChart>
-    <LineChart class="item"></LineChart>
+    <statistic-card class="analysis"></statistic-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import AdminOverview from './adminHome/AdminOverview.vue'
-import BarChart from './adminHome/BarChart.vue'
-import PieChart from './adminHome/PieChart.vue'
-import LineChart from './adminHome/LineChart.vue'
+import StatisticCard from './adminHome/Statistic.vue'
 </script>
 
 <style lang="scss" scoped>
@@ -19,12 +13,16 @@ import LineChart from './adminHome/LineChart.vue'
   display: flex;
   flex-wrap: wrap;
   box-shadow: var(--el-box-shadow-light);
-  .item {
-    width: 50%;
-    height: calc((100vh - 130px) / 2);
-    min-height: 360px;
-    padding: 20px;
-    border: 1px solid #f5f5f5;
+  .analysis{
+    width: 100%;
+    //height: calc((100vh - 130px) / 2);
   }
+  //.item {
+  //  width: 50%;
+  //  height: calc((100vh - 130px) / 2);
+  //  min-height: 360px;
+  //  padding: 20px;
+  //  border: 1px solid #f5f5f5;
+  //}
 }
 </style>

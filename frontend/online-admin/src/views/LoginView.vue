@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" class="loginbg">
     <div class="login-box">
       <div class="logo">
         <el-image
@@ -56,9 +56,14 @@ const reset = () => {
 </script>
 
 <style lang="scss" scoped>
+.loginbg {
+  background-image: url('../assets/wallhaven-p22e6j.jpg');
+  background-size: cover;
+}
+
 #login {
   height: 100vh;
-  background: linear-gradient(to right, #2b2c43, #1e3158);
+  // background: linear-gradient(to right, #2b2c43, #1e3158);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,6 +77,7 @@ const reset = () => {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    opacity: 0.95;
 
     .logo {
       width: 120px;
