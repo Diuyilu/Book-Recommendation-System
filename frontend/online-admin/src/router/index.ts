@@ -110,7 +110,18 @@ const router = createRouter({
               component: () => import('@/components/books/NewBook.vue'),
               meta: {
                 title: '新书速递'
-              }
+              },
+              children: [
+                {
+                  path: 'newbookinfo',
+                  name: 'newbookinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'newbook'
+                  }
+                }
+              ]
             },
             {
               path: 'popularbook',

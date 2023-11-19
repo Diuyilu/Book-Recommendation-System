@@ -66,8 +66,10 @@ const userInfoStore = useUserInfoStore()
   height: 26px;
   margin-top: 5px;
 }
-
+.el-counter {
+  max-width: calc(100vw - 315px);
+}
 .el-main {
-  max-width: calc(100vw - 210px);
+  max-width: calc(100vw - 315px);
 }
 </style>

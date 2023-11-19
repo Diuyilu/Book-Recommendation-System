@@ -29,6 +29,12 @@ class GetBookInfoById(Resource):
         book = Book.query.filter(Book.db_id == str(db_id)).all()
         return book_serializer(book)
 
+class GetNewBookInfo(Resource):
+    def get(self):
+        # 查询Book.pubdata前四位大于等于2023的数据
+        book = Book.query.filter(Book.pubdate >= 2023).order_by(func.random()).limit(10)
+        return book_serializer(book)
+
 def b_to_dict(b_data):
     """将字节数据转化为 dict 类型的数据"""
     json_data = b_data.decode()
