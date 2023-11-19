@@ -1,3 +1,5 @@
+
+from urllib import parse
 # 打开txt文件并读取内容
 with open('key.txt', 'r') as file:
     content = file.read()
@@ -17,7 +19,8 @@ HOST = variables.get('HOST')
 PORT = variables.get('PORT')
 DATABASE = variables.get('DATABASE')
 USERNAME = variables.get('USERNAME')
-PASSWORD = variables.get('PASSWORD')
+PASSWORD = parse.quote_plus(variables.get('PASSWORD'))
+
 
 DB_URI = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}?charset=utf8".format(username=USERNAME,password=PASSWORD, host=HOST,port=PORT, db=DATABASE)
 

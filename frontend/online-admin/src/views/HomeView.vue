@@ -7,11 +7,11 @@
         </el-aside>
       </el-affix>
       <el-container>
-<!--        <el-affix>-->
-<!--          <el-header class="head">-->
-<!--            <AdminHeader></AdminHeader>-->
-<!--          </el-header>-->
-<!--        </el-affix>-->
+        <!--        <el-affix>-->
+        <!--          <el-header class="head">-->
+        <!--            <AdminHeader></AdminHeader>-->
+        <!--          </el-header>-->
+        <!--        </el-affix>-->
         <el-container>
           <el-header class="breadcrumb">
             <AdminBreadcrumb></AdminBreadcrumb>
@@ -55,7 +55,7 @@ const userInfoStore = useUserInfoStore()
   min-height: 100vh;
   .el-menu-vertical-demo {
     --font-size: 10px;
-  };
+  }
   //min-height: calc(100vh - 60px);
   //text
 }

@@ -20,7 +20,6 @@ declare module 'vue' {
     DatavManagement: typeof import('./src/components/datav/DatavManagement.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
-    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -52,7 +51,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Statistic: typeof import('./src/components/home/adminHome/Statistic.vue')['default']
-    TemplateView: typeof import('./src/components/books/TemplateView.vue')['default']
     UsersManagement: typeof import('./src/components/users/UsersManagement.vue')['default']
   }
 }
