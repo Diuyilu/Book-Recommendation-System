@@ -129,7 +129,18 @@ const router = createRouter({
               component: () => import('@/components/books/PopularBook.vue'),
               meta: {
                 title: '热门书籍'
-              }
+              },
+              children: [
+                {
+                  path: 'popbookinfo',
+                  name: 'popbookinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'popularbook'
+                  }
+                }
+              ]
             },
             {
               path: 'bookclass',
@@ -137,7 +148,18 @@ const router = createRouter({
               component: () => import('@/components/books/BookClass.vue'),
               meta: {
                 title: '图书分类'
-              }
+              },
+              children: [
+                {
+                  path: 'bookclassinfo',
+                  name: 'bookclassinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'bookclass'
+                  }
+                }
+              ]
             }
           ]
         },

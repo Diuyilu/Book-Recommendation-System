@@ -63,3 +63,12 @@ def book_serializer(bookinfo):
             }
             book_list.append(booktest_dict)
     return jsonify({'book_list': book_list, "status": 1})
+
+def label_serializer(bookinfo):
+    label_list = []
+    for book in bookinfo:
+        label_dict = {
+            'label': book.label,
+        }
+        label_list.append(label_dict)
+    return jsonify({'label_list': label_list, "status": 1})

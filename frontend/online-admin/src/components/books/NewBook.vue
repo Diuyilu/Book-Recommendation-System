@@ -14,7 +14,7 @@
             </el-card>
           </div>
         </el-col>
-        <el-col :span="12" style="margin-left: 15px">
+        <el-col :span="16" style="margin-left: 15px">
           <el-row style="margin-top: 20px">
             <div @click="push_router(book.db_id)" style="cursor: pointer">
               <h1>
@@ -198,7 +198,7 @@ onMounted(() => {
 #booktitle {
   font-size: 30px;
   font-weight: 600;
-  color: #3f51b5;
+  color: #29455b;
   justify-content: center; /* 水平居中 */
 }
 #bookcontent {
