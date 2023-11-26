@@ -45,7 +45,18 @@ const router = createRouter({
               meta: {
                 title: '借阅历史',
                 parentRouteName: 'users'
-              }
+              },
+              children: [
+                {
+                  path: 'historyinfo',
+                  name: 'historyinfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'history'
+                  }
+                }
+              ]
             },
             {
               path: 'recommend',

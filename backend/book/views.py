@@ -13,7 +13,7 @@ from book.serializers import book_serializer, label_serializer
 
 class GetBookInfo(Resource):
     def get(self):
-        book = Book.query.order_by(func.random()).limit(10)
+        book = Book.query.order_by(func.random()).limit(30)
         return book_serializer(book)
 
 class SearchBookInfo(Resource):

@@ -1,46 +1,28 @@
 <template>
-  <RouterView> </RouterView>
-  <div v-show="flag">
+  <div>
     <div>
       <el-row>
-        <el-col :span="24">
-          <div style="font-size: 30px">曾经看过</div>
-          <el-row class="book_list" :gutter="40">
-            <el-col
-              :span="3"
-              v-for="book in tableData()"
-              :key="book.db_id"
-              style="margin-bottom: 20px"
-            >
+        <el-col :span="16">
+          <div style="font-size: 30px">历史借阅</div>
+          <el-row class="book_list" :gutter="250">
+            <el-col :span="5" v-for="book in books" :key="book.db_id" style="margin-bottom: 20px">
               <el-card
                 class="box-card"
-                shadow="hover"
                 style="height: 280px; width: 200px; cursor: pointer"
                 @click="push_router(book.db_id)"
               >
                 <img :src="book.image_address" style="width: 155px" id="image" />
+                <div style="margin-top: 2px">
+                  {{ book.book_title }}
+                </div>
               </el-card>
-              <div class="book_title">
-                {{ book.book_title }}
-              </div>
             </el-col>
           </el-row>
         </el-col>
-        <div class="pagination-block">
-          <!-- <div class="example-demonstration">分页</div> -->
-          <el-pagination
-            background
-            :page-sizes="[7, 10]"
-            :page-size="7"
-            layout="prev, pager, next"
-            :total="state.total"
-            @current-change="handleCurrentChange"
-            @size-change="handleSizeChange"
-          />
-        </div>
-      </el-row>
-      <el-row>
-        <div style="font-size: 30px">你的标签</div>
+        <el-col :span="8">
+          <div style="font-size: 30px">借阅关键字</div>
+          <div id="wordCloud" style="width: 25vw; height: 60vh"></div>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -48,103 +30,170 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { onMounted, watch, reactive, ref } from 'vue'
-import { on } from 'events'
-
-let flag = true
-const message = ref()
-
-const get_history_book_info = async () => {
-  message.value = books
-  state.total = books.length
-}
-
-const tableData = () => {
-  if (message.value) {
-    return message.value.filter(
-      (item, index) => index < state.page * state.limit && index >= state.limit * (state.page - 1)
-    )
-  } else return []
-}
+import * as echarts from 'echarts/core'
+import 'echarts-wordcloud'
+import { onMounted } from 'vue'
 
 const router = useRouter()
 function push_router(db_id) {
   const book_id = db_id
   console.log(book_id)
   router.push({
-    name: 'historyinfo',
+    name: 'newbookinfo',
     query: {
       book_id: JSON.stringify(book_id)
     }
   })
 }
 
-function change_flag(x) {
-  flag = x
-}
-
-watch(
-  () => router.currentRoute.value.name,
-  (to, from) => {
-    if (to === 'historyinfo') {
-      change_flag(false)
-    } else if (to === 'history') {
-      change_flag(true)
-    }
-  }
-)
-
-const state = reactive({
-  page: 1,
-  limit: 7,
-  // total: message.value.length
-  total: 0
-})
-
-const handleCurrentChange = (e) => {
-  state.page = e
-}
-//改变页数限制
-const handleSizeChange = (e) => {
-  state.limit = e
-}
-
 onMounted(() => {
-  console.log('yesyesyes!')
-  get_history_book_info()
+  init()
 })
+
+const data = [
+  { value: 67, name: '红腹角雉' },
+  { value: 42, name: '百年孤独' },
+  { value: 58, name: '1984' },
+  { value: 29, name: '人类简史' },
+  { value: 36, name: '活着' },
+  { value: 51, name: '小王子' },
+  { value: 73, name: '三体' },
+  { value: 45, name: '哈利·波特与魔法石' },
+  { value: 62, name: '局外人' },
+  { value: 39, name: '时间简史' },
+  { value: 55, name: '麦田里的守望者' },
+  { value: 81, name: '围城' },
+  { value: 64, name: '傲慢与偏见' },
+  { value: 48, name: '了不起的盖茨比' },
+  { value: 57, name: '追风筝的人' },
+  { value: 33, name: '解忧杂货店' },
+  { value: 72, name: '平凡的世界' },
+  { value: 40, name: '白夜行' },
+  { value: 53, name: '福尔摩斯探案全集' },
+  { value: 66, name: '西游记' },
+  { value: 38, name: '飘' },
+  { value: 49, name: '简爱' },
+  { value: 61, name: '琅琊榜' },
+  { value: 44, name: '悲惨世界' },
+  { value: 30, name: '红楼梦' },
+  { value: 52, name: '水浒传' },
+  { value: 79, name: '活着为了讲述' },
+  { value: 35, name: '罪与罚' },
+  { value: 47, name: '巴黎圣母院' },
+  { value: 54, name: '人间失格' }
+]
+
+const init = () => {
+  var myChart = echarts.init(document.getElementById('wordCloud')!)
+
+  const option = {
+    series: [
+      {
+        type: 'wordCloud',
+
+        // 要绘制云的形状,默认是 circle，可选的参数有 cardioid 、 diamond 、 triangle-forward 、 triangle 、 star
+        shape: 'circle',
+
+        // 保持maskImage的纵横比或1:1的形状
+        // 从echarts-wordcloud@2.1.0开始支持该选项
+        keepAspect: false,
+
+        // 左/上/宽/高/右/下用于字云的定位
+        // 默认放置在中心，大小为75% x 80%。
+        left: 'center',
+        top: 'center',
+        width: '70%',
+        height: '80%',
+        right: null,
+        bottom: null,
+
+        // 数据中的值将映射到的文本大小范围。
+        // 默认值为最小12px，最大60px。
+        sizeRange: [12, 60],
+
+        // 文字旋转范围和步进程度。文本将通过rotationStep 45在[- 90,90]范围内随机旋转
+        rotationRange: [-90, 90],
+        rotationStep: 45,
+
+        // 网格大小(以像素为单位)，用于标记画布的可用性
+        // 网格大小越大，单词之间的间隔就越大
+        gridSize: 8,
+
+        // 设置为true允许文字部分地绘制在画布之外。
+        // 允许画比画布大的字
+        // 从echarts-wordcloud@2.1.0开始支持该选项
+        drawOutOfBound: false,
+
+        // 如果字体太大，无法显示文本，是否缩小文本。如果设置为false，则文本将不被渲染。如果设置为true，文本将被缩小。
+        shrinkToFit: false,
+
+        // 是否执行布局动画。
+        //当单词较多时禁用会导致UI阻塞。
+        layoutAnimation: true,
+
+        // 全局文本样式
+        textStyle: {
+          fontFamily: 'sans-serif',
+          fontWeight: 'bold',
+          // Color可以是回调函数或颜色字符串
+          color: function () {
+            // 任意颜色
+            return (
+              'rgb(' +
+              [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+              ].join(',') +
+              ')'
+            )
+          }
+        },
+        emphasis: {
+          focus: 'self',
+          textStyle: {
+            textShadowBlur: 10,
+            textShadowColor: '#333'
+          }
+        },
+        data: data
+      }
+    ]
+  }
+  myChart.setOption(option)
+}
 
 const books = [
-  {
-    ISBN: '9787111114741',
-    author: '王佑',
-    author_introduction:
-      '\n    王佑先生，企业资源管理研究中心资深顾问，AMT个人高级会员，拥有多年的国际国内管理咨询产业研究经验，曾广泛深入地参与中国企业管理提升及住处化应用咨询实践。成功领导、参与为多家知名企业（如国家电力华东公司、正泰集团、大唐电信、白沙集团、海信集团、东方电子等）提供咨询建议。作为特约撰稿，有多篇专篇文章在经济管理类及IT信息类著名报刊与核心期刊上发表。同时，王佑先生参与在国内较早地提出了“甲方咨询”模式，并在多家企业取得成功实践。\n    \n    主要培训领域： 像咨询顾问一样思考、人力资源管理及I',
-    binding: '精装(无盘)',
-    book_link: 'https://book.douban.com/subject/1075677/',
-    book_subtitle: null,
-    book_title: '像咨询顾问一样思考',
-    collection_time: '2023-09-19',
-    content_validity:
-      '\n    管理咨询行业是当今为数不多的高收益行业之一，同时也是最引人入胜的行业之一。这个略带神秘的行业留下了很多疑惑，管理咨询究竟能给企业带来什么？咨询顾问如何对企业进行诊断和研究？怎样才能成为一名优秀的咨询顾问？企业如何选择合适的咨询公司开展咨询项目？……        本书将为你解开这些疑惑。',
-    db_id: '1075677',
-    half_rating: '4.0',
-    image_address:
-      'https://images.weserv.nl/?url=/img1.doubanio.com/view/subject/s/public/s1177110.jpg',
-    label: '商业',
-    menu: '\n        丛书序\n        前言\n        第一部分 拨开管理咨询的重重迷雾：其实管理咨询并不神秘\n        第二部分 掌握管理咨询的方法论：你也能成为优秀的咨询顾问\n        第三部分 专业咨询顾问的百宝箱----管理咨询的分析工具\n        第四部分 揭示咨询项目的工作流程：深入了解咨询顾问的工作步骤\n        第五部分 分析咨询项目的成功要素：小心掉入咨询的“陷阱”\n        第六部分 认识咨询公司的管理要素：对咨询公司的“咨询”\n        附',
-    original_title: null,
-    pages: '347',
-    press: '\n      机械工业出版社\n    ',
-    price: '36.00',
-    pubdate: '2003-2-1',
-    rating: '8.0 ',
-    rating_number: '28',
-    series: '无',
-    series_link: '无',
-    translator: '无',
-    translator_introduction: '无'
-  },
+  // {
+  //   ISBN: '9787111114741',
+  //   author: '王佑',
+  //   author_introduction:
+  //     '\n    王佑先生，企业资源管理研究中心资深顾问，AMT个人高级会员，拥有多年的国际国内管理咨询产业研究经验，曾广泛深入地参与中国企业管理提升及住处化应用咨询实践。成功领导、参与为多家知名企业（如国家电力华东公司、正泰集团、大唐电信、白沙集团、海信集团、东方电子等）提供咨询建议。作为特约撰稿，有多篇专篇文章在经济管理类及IT信息类著名报刊与核心期刊上发表。同时，王佑先生参与在国内较早地提出了“甲方咨询”模式，并在多家企业取得成功实践。\n    \n    主要培训领域： 像咨询顾问一样思考、人力资源管理及I',
+  //   binding: '精装(无盘)',
+  //   book_link: 'https://book.douban.com/subject/1075677/',
+  //   book_subtitle: null,
+  //   book_title: '像咨询顾问一样思考',
+  //   collection_time: '2023-09-19',
+  //   content_validity:
+  //     '\n    管理咨询行业是当今为数不多的高收益行业之一，同时也是最引人入胜的行业之一。这个略带神秘的行业留下了很多疑惑，管理咨询究竟能给企业带来什么？咨询顾问如何对企业进行诊断和研究？怎样才能成为一名优秀的咨询顾问？企业如何选择合适的咨询公司开展咨询项目？……        本书将为你解开这些疑惑。',
+  //   db_id: '1075677',
+  //   half_rating: '4.0',
+  //   image_address:
+  //     'https://images.weserv.nl/?url=/img1.doubanio.com/view/subject/s/public/s1177110.jpg',
+  //   label: '商业',
+  //   menu: '\n        丛书序\n        前言\n        第一部分 拨开管理咨询的重重迷雾：其实管理咨询并不神秘\n        第二部分 掌握管理咨询的方法论：你也能成为优秀的咨询顾问\n        第三部分 专业咨询顾问的百宝箱----管理咨询的分析工具\n        第四部分 揭示咨询项目的工作流程：深入了解咨询顾问的工作步骤\n        第五部分 分析咨询项目的成功要素：小心掉入咨询的“陷阱”\n        第六部分 认识咨询公司的管理要素：对咨询公司的“咨询”\n        附',
+  //   original_title: null,
+  //   pages: '347',
+  //   press: '\n      机械工业出版社\n    ',
+  //   price: '36.00',
+  //   pubdate: '2003-2-1',
+  //   rating: '8.0 ',
+  //   rating_number: '28',
+  //   series: '无',
+  //   series_link: '无',
+  //   translator: '无',
+  //   translator_introduction: '无'
+  // },
   {
     ISBN: '9787115614162',
     author: '[荷] 费莉安·赫尔曼斯 (Felienne Hermans)',
@@ -205,36 +254,36 @@ const books = [
     translator: '王凯梅',
     translator_introduction: '无'
   },
-  {
-    ISBN: '9781718502604',
-    author: 'Jeremy Kubica',
-    author_introduction:
-      '\n    Jeremy Kubica is an engineer director specializing in artificial intelligence and machine learning. He received a Ph.D. in Robotics from Carnegie Mellon University and a BS in Computer Science from Cornell University. He spent his graduate school yea',
-    binding: 'Paperback',
-    book_link: 'https://book.douban.com/subject/36217372/',
-    book_subtitle: 'An Amusing Adventure with Coffee-Filled Examples',
-    book_title: 'Data Structures the Fun Way',
-    collection_time: '2023-09-15',
-    content_validity:
-      '\n    This accessible and entertaining book provides an in-depth introduction to computational thinking through the lens of data structures — a critical component in any programming endeavor. Through diagrams, pseudocode, and humorous analogies, you’ll lea',
-    db_id: '36217372',
-    half_rating: 0,
-    image_address:
-      'https://images.weserv.nl/?url=/img1.doubanio.com/view/subject/s/public/s34394720.jpg',
-    label: '数学',
-    menu: '\n        Introduction\n        Chapter 1: Information in Memory\n        Chapter 2: Binary Search\n        Chapter 3: Dynamic Data Structures\n        Chapter 4: Stacks and Queues\n        Chapter 5: Binary Search Trees\n        Chapter 6: Tries and Adapting Da',
-    original_title: null,
-    pages: '304',
-    press: '‎No Starch Press',
-    price: null,
-    pubdate: '2022-11',
-    rating: 0,
-    rating_number: '0',
-    series: '无',
-    series_link: '无',
-    translator: '无',
-    translator_introduction: '无'
-  },
+  // {
+  //   ISBN: '9781718502604',
+  //   author: 'Jeremy Kubica',
+  //   author_introduction:
+  //     '\n    Jeremy Kubica is an engineer director specializing in artificial intelligence and machine learning. He received a Ph.D. in Robotics from Carnegie Mellon University and a BS in Computer Science from Cornell University. He spent his graduate school yea',
+  //   binding: 'Paperback',
+  //   book_link: 'https://book.douban.com/subject/36217372/',
+  //   book_subtitle: 'An Amusing Adventure with Coffee-Filled Examples',
+  //   book_title: 'Data Structures the Fun Way',
+  //   collection_time: '2023-09-15',
+  //   content_validity:
+  //     '\n    This accessible and entertaining book provides an in-depth introduction to computational thinking through the lens of data structures — a critical component in any programming endeavor. Through diagrams, pseudocode, and humorous analogies, you’ll lea',
+  //   db_id: '36217372',
+  //   half_rating: 0,
+  //   image_address:
+  //     'https://images.weserv.nl/?url=/img1.doubanio.com/view/subject/s/public/s34394720.jpg',
+  //   label: '数学',
+  //   menu: '\n        Introduction\n        Chapter 1: Information in Memory\n        Chapter 2: Binary Search\n        Chapter 3: Dynamic Data Structures\n        Chapter 4: Stacks and Queues\n        Chapter 5: Binary Search Trees\n        Chapter 6: Tries and Adapting Da',
+  //   original_title: null,
+  //   pages: '304',
+  //   press: '‎No Starch Press',
+  //   price: null,
+  //   pubdate: '2022-11',
+  //   rating: 0,
+  //   rating_number: '0',
+  //   series: '无',
+  //   series_link: '无',
+  //   translator: '无',
+  //   translator_introduction: '无'
+  // },
   {
     ISBN: '9787300110929',
     author: '哈维·S·罗森(Harvey.S.Rosen)',
@@ -421,26 +470,13 @@ const books = [
 <style lang="scss" scoped>
 .book_list {
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  // align-items: center;
+  // display: flex;
+  // justify-content: center;
+  align-items: center;
 }
 .box-card {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.book_title {
-  margin-top: 10px;
-  margin-left: 35px;
-  display: flex;
-  justify-content: center;
-  // align-items: center;
-}
-.pagination-block {
-  margin-top: 20px;
-  margin-left: 38vw;
-  // justify-content: center;
-  // align-items: center;
 }
 </style>

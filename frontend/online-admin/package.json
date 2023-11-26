@@ -16,6 +16,8 @@
     "axios": "^1.5.0",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
+    "echarts": "^5.4.3",
+    "echarts-wordcloud": "^2.1.0",
     "element-plus": "^2.3.12",
     "pinia": "^2.1.6",
     "qs": "^6.11.2",
