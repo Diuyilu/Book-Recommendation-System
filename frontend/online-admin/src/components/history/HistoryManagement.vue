@@ -4,7 +4,7 @@
     <div>
       <el-row>
         <el-col :span="24">
-          <div style="font-size: 30px">曾经看过</div>
+          <div style="font-size: 20px">曾经看过</div>
           <el-row class="book_list" :gutter="40">
             <el-col
               :span="3"
@@ -15,7 +15,7 @@
               <el-card
                 class="box-card"
                 shadow="hover"
-                style="height: 280px; width: 200px; cursor: pointer"
+                style="height: 280px; width: 200px; border: 0px; cursor: pointer"
                 @click="push_router(book.db_id)"
               >
                 <img :src="book.image_address" style="width: 155px" id="image" />
@@ -40,7 +40,7 @@
         </div>
       </el-row>
       <el-row>
-        <div style="font-size: 30px">你的标签</div>
+        <div style="font-size: 20px">你的标签</div>
       </el-row>
     </div>
   </div>
@@ -422,8 +422,9 @@ const books = [
 .book_list {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   // align-items: center;
+  height: 390px;
 }
 .box-card {
   display: flex;

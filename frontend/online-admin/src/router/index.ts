@@ -25,7 +25,8 @@ const router = createRouter({
         {
           path: 'admin-home',
           name: 'admin-home',
-          component: () => import('@/components/home/AdminHome.vue'),
+          // component: () => import('@/components/home/AdminHome.vue'),
+          component: () => import('@/components/datav/DatavManagement.vue'),
           meta: {
             title: '首页'
           }

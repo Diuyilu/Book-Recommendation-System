@@ -7,16 +7,24 @@
           <div>
             <el-card
               class="box-card"
-              style="max-width: 200px; cursor: pointer"
-              @click="push_router(book.db_id)"
+              style="height: 280px; width: 200px; border: 0px; cursor: pointer"
+              @click="push_router(book.book_id)"
+              shadow="hover"
             >
-              <img :src="book.image_address" style="max-width: 155px" id="image" />
+              <div v-if="book.image_address">
+                <img :src="book.image_address" style="width: 155px" id="image" />
+              </div>
+              <div v-else id="image_title">
+                <div style="text-align: center; font-weight: 500">
+                  {{ book.book_title }}
+                </div>
+              </div>
             </el-card>
           </div>
         </el-col>
         <el-col :span="12" style="margin-left: 15px">
           <el-row style="margin-top: 20px">
-            <div @click="push_router(book.db_id)" style="cursor: pointer">
+            <div @click="push_router(book.book_id)" style="cursor: pointer">
               <h1>
                 <span id="booktitle">
                   {{ book.book_title }}
@@ -42,9 +50,11 @@
               <br />
             </div>
             <div v-if="book.press">
-              <span class="pl">出版社：</span>
-              <a>{{ book.press }}</a>
-              <br />
+              <div v-if="book.press != '    '">
+                <span class="pl">出版社：</span>
+                <a>{{ book.press }}</a>
+                <br />
+              </div>
             </div>
             <div v-if="book.book_subtitle">
               <span class="pl">副标题：</span>
@@ -112,9 +122,9 @@
                 </div>
                 <div class="rating_right">
                   <div class="rating_sum">
-                    <a :href="book.book_link + /comments/" class="rating_people">
+                    <!-- <a :href="book.book_link + /comments/" class="rating_people">
                       {{ book.rating_number }}人评价
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>
@@ -123,7 +133,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="pagination-block">
+    <div class="pagination-block" v-show="tableData().length > 0">
       <!-- <div class="example-demonstration">分页</div> -->
       <el-pagination
         background
@@ -156,8 +166,8 @@ const router = useRouter()
 
 let flag = true
 
-function push_router(db_id) {
-  const book_id = db_id
+function push_router(b_id) {
+  const book_id = b_id
   console.log(book_id)
   router.push({
     name: 'popbookinfo',
@@ -218,10 +228,27 @@ onMounted(() => {
 #booklist {
   margin-bottom: 50px;
 }
+.box-card {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+}
 #image {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
+  width: 155px;
+}
+#image_title {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  width: 155px;
+  height: 200px;
+  background-color: #e7e5e5;
+  font-size: 20px;
+  font-weight: 600;
+  color: #29455b;
 }
 #booktitle {
   font-size: 30px;

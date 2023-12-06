@@ -13,7 +13,9 @@ from book.serializers import book_serializer, label_serializer
 
 class GetBookInfo(Resource):
     def get(self):
+        # book = Book.query.order_by(func.random()).limit(30)
         book = Book.query.order_by(func.random()).limit(30)
+        print('开始查询')
         return book_serializer(book)
 
 class SearchBookInfo(Resource):
@@ -27,14 +29,14 @@ class GetBookInfoById(Resource):
     def post(self):
         data = request.get_json()
         # data = b_to_dict(request.data)
-        db_id = data['db_id']
-        book = Book.query.filter(Book.db_id == str(db_id)).all()
+        book_id = data['book_id']
+        book = Book.query.filter(Book.book_id == str(book_id)).all()
         return book_serializer(book)
 
 class GetNewBookInfo(Resource):
     def get(self):
         # 查询Book.pubdata前四位大于等于2023的数据
-        book = Book.query.filter(Book.pubdate >= 2023).order_by(func.random()).limit(10)
+        book = Book.query.filter(Book.pubyear >= 2023).order_by(func.random()).limit(10)
         return book_serializer(book)
 
 class GetPopBookInfo(Resource):

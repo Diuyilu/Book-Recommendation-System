@@ -4,7 +4,11 @@
     <el-row id="label" style="margin-bottom: 20px">
       <el-col v-for="item in booklist" :key="item.label" :span="2">
         <div>
-          <el-button id="labeltxt" @click="change_label(item.label)">
+          <el-button
+            id="labeltxt"
+            :plain="page_label === item.label"
+            @click="change_label(item.label)"
+          >
             {{ item.label }}
           </el-button>
         </div>
@@ -13,14 +17,14 @@
     <div v-for="item in booklist" :key="item.label">
       <div v-show="page_label === item.label" :key="1">
         <ul v-if="Array.isArray(item.book_list)">
-          <div v-for="book in item.book_list" :key="book.db_id" id="booklist">
+          <div v-for="book in item.book_list" :key="book.book_id" id="booklist">
             <el-row>
               <el-col :span="3">
                 <div>
                   <el-card
                     class="box-card"
                     style="max-width: 200px; cursor: pointer"
-                    @click="push_router(book.db_id)"
+                    @click="push_router(book.book_id)"
                   >
                     <img :src="book.image_address" style="max-width: 155px" id="image" />
                   </el-card>
@@ -28,7 +32,7 @@
               </el-col>
               <el-col :span="16" style="margin-left: 15px">
                 <el-row style="margin-top: 20px">
-                  <div @click="push_router(book.db_id)" style="cursor: pointer">
+                  <div @click="push_router(book.book_id)" style="cursor: pointer">
                     <h1>
                       <span id="booktitle">
                         {{ book.book_title }}
@@ -146,8 +150,8 @@ function change_flag(x) {
   flag = x
 }
 
-function push_router(db_id) {
-  const book_id = db_id
+function push_router(b_id) {
+  const book_id = b_id
   console.log(book_id)
   router.push({
     name: 'bookclassinfo',
@@ -183,6 +187,7 @@ onMounted(async () => {
       book_list: book_list
     })
   }
+  // change_label('小说')
 })
 </script>
 

@@ -9,8 +9,8 @@
 // import CryptoJS from 'crypto-js'
 import CryptoJS from 'crypto-js/crypto-js'
 
-var token = 'qqqYbJzS7zw4UuCtMXAhmg_bdT2-eY76'
-var screenID = '671009d2441a0c8e8dacbbc0671e67dd'
+var token = 'KH9Yzpjz6uxNTkE0AzgSSDcDyU9gPdC5'
+var screenID = '7dbddfb1ecbaeede70ed496dd6573c83'
 var time = Date.now()
 var stringToSign = screenID + '|' + time
 var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(stringToSign, token))
@@ -32,7 +32,7 @@ var url =
   justify-content: center;
 }
 #main {
-  width: calc(100vw - 220px);
+  width: calc(100vw - 320px);
   min-height: calc(100vh - 115px);
 }
 </style>

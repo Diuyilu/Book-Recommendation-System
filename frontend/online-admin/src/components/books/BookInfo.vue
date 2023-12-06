@@ -1,5 +1,5 @@
 <template>
-  <div v-for="book in books" :key="book.db_id">
+  <div v-for="book in books" :key="book.book_id">
     <el-row>
       <el-col>
         <h1 id="title">
@@ -11,8 +11,11 @@
     </el-row>
     <el-row>
       <el-col :span="2.5">
-        <div id="cover">
+        <div id="cover" v-if="book.image_address">
           <img :src="book.image_address" alt="封面" style="max-width: 155px" />
+        </div>
+        <div id="image_title" v-else>
+          {{ book.book_title }}
         </div>
       </el-col>
       <el-col :span="12">
@@ -22,7 +25,7 @@
             <a>{{ book.author }}</a>
             <br />
           </div>
-          <div v-if="book.press">
+          <div v-if="book.press != '    '">
             <span class="pl">出版社：</span>
             <a>{{ book.press }}</a>
             <br />
@@ -93,9 +96,9 @@
               </div>
               <div class="rating_right">
                 <div class="rating_sum">
-                  <a :href="book.book_link + /comments/" class="rating_people">
+                  <!-- <a :href="book.book_link + /comments/" class="rating_people">
                     {{ book.rating_number }}人评价
-                  </a>
+                  </a> -->
                 </div>
               </div>
             </div>
@@ -219,7 +222,7 @@ console.log(book_id)
 // ]
 
 const form = ref({
-  db_id: book_id
+  book_id: book_id
 })
 
 const books = ref()
@@ -236,6 +239,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+#image_title {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  width: 155px;
+  height: 200px;
+  background-color: #e7e5e5;
+  font-size: 20px;
+  font-weight: 600;
+  color: #29455b;
+  text-align: center;
+}
 #title {
   font-size: 26px;
   word-wrap: break-word;

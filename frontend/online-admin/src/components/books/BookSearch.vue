@@ -17,12 +17,20 @@
       </el-form>
     </div>
     <!-- <el-table :data="tableData" style="width: 100%"> -->
-    <el-table :data="tableData()" style="width: 100%; cursor: pointer" @row-click="push_router">
+    <el-table
+      :data="tableData()"
+      style="width: 100%; cursor: pointer"
+      @row-click="push_router"
+      v-show="tableData().length > 0"
+    >
       <el-table-column prop="book_title" label="书籍名称"></el-table-column>
       <el-table-column label="书籍封面">
         <template #default="scope">
-          <div style="display: flex; align-items: center">
+          <div style="display: flex; align-items: center" v-if="scope.row.image_address">
             <el-image :src="scope.row.image_address" style="height: 100px" />
+          </div>
+          <div class="image_title" v-else>
+            {{ scope.row.book_title }}
           </div>
         </template>
       </el-table-column>
@@ -30,7 +38,7 @@
       <el-table-column prop="press" label="出版社"></el-table-column>
       <el-table-column prop="label" label="书籍类型"></el-table-column>
     </el-table>
-    <div class="pagination-block">
+    <div class="pagination-block" v-show="tableData().length > 0">
       <!-- <div class="example-demonstration">分页</div> -->
       <el-pagination
         background
@@ -55,7 +63,7 @@ const router = useRouter()
 let flag = true
 
 function push_router(row, column, event) {
-  const book_id = row.db_id
+  const book_id = row.book_id
   console.log(book_id)
   router.push({
     name: 'booksearchinfo',
@@ -160,5 +168,17 @@ const handleSizeChange = (e) => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.image_title {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  width: 80px;
+  height: 100px;
+  background-color: #e7e5e5;
+  font-size: 10px;
+  font-weight: 600;
+  color: #29455b;
+  text-align: center;
 }
 </style>
