@@ -71,9 +71,9 @@
               <a>{{ book.translator }}</a>
               <br />
             </div>
-            <div v-if="book.pubyear">
+            <div v-if="book.pubdate">
               <span class="pl">出版年：</span>
-              <a>{{ book.pubyear }}</a>
+              <a>{{ book.pubdate }}</a>
               <br />
             </div>
             <div v-if="book.pages">
@@ -105,26 +105,52 @@
         </el-col>
         <el-col :span="4" id="bookrating">
           <div id="interest_sectl">
-            <div class="rating_wrap">
-              <div class="rating_logo">豆瓣评分</div>
-              <div class="rating_self clearfix">
-                <strong class="rating_num" property="v:average">
-                  {{ book.rating }}
-                </strong>
-                <div class="star">
-                  <el-rate
-                    v-model="book.half_rating"
-                    text-color="#ff9900"
-                    allow-half
-                    disabled
-                    score-template="{value} points"
-                  />
-                </div>
-                <div class="rating_right">
-                  <div class="rating_sum">
-                    <!-- <a :href="book.book_link + /comments/" class="rating_people">
+            <div v-if="book.rating > 0">
+              <div class="rating_wrap">
+                <div class="rating_logo">推荐指数</div>
+                <div class="rating_self clearfix">
+                  <strong class="rating_num" property="v:average">
+                    {{ book.rating }}
+                  </strong>
+                  <div class="star">
+                    <el-rate
+                      v-model="book.half_rating"
+                      text-color="#ff9900"
+                      allow-half
+                      disabled
+                      score-template="{value} points"
+                    />
+                  </div>
+                  <div class="rating_right">
+                    <div class="rating_sum">
+                      <!-- <a :href="book.book_link + /comments/" class="rating_people">
                       {{ book.rating_number }}人评价
                     </a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="rating_wrap">
+                <div class="rating_logo">推荐指数</div>
+                <div class="rating_self clearfix">
+                  <strong class="rating_num" property="v:average">{{ fakerating }}</strong>
+                  <div class="star">
+                    <el-rate
+                      :v-model="fakerating"
+                      text-color="#ff9900"
+                      allow-half
+                      disabled
+                      score-template="{value} points"
+                    />
+                  </div>
+                  <div class="rating_right">
+                    <div class="rating_sum">
+                      <!-- <a :href="book.book_link + /comments/" class="rating_people">
+                      {{ book.rating_number }}人评价
+                    </a> -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -149,48 +175,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive } from 'vue'
-import { getPopBookInfoAPI } from '@/apis/books'
+import { toRefs, reactive, ref, defineExpose, onMounted, watch } from 'vue'
+import { BookData, getBookInfoAPI } from '@/apis/books'
 import { useRouter } from 'vue-router'
 
-const books = ref()
-const get_pop_book_info = async () => {
-  const res = await getPopBookInfoAPI()
-  console.log(res.book_list)
-  books.value = res.book_list
-  state.total = res.book_list.length
-  message.value = res.book_list
-}
+const fakerating = ref(3)
 
+const message = ref()
 const router = useRouter()
+const books = ref()
 
 let flag = true
-
-function push_router(b_id) {
-  const book_id = b_id
-  console.log(book_id)
-  router.push({
-    name: 'popbookinfo',
-    query: {
-      book_id: JSON.stringify(book_id)
-    }
-  })
-}
 
 function change_flag(x) {
   flag = x
 }
 
+// 使用watch监听路由，让flag发声变化，当路由变为booksearchinfo时，flag变为false，此时不显示搜索框。当路由变为booksearch时，flag变为true，此时显示搜索框
 watch(
   () => router.currentRoute.value.name,
   (to, from) => {
-    if (to === 'popbookinfo') {
+    if (to === 'recommendinfo') {
       change_flag(false)
-    } else if (to === 'popularbook') {
+    } else if (to === 'recommend') {
       change_flag(true)
     }
   }
 )
+
+// 调用getBookInfoAPI获取数据
+
+const get_book_info = async () => {
+  const res = await getBookInfoAPI()
+  console.log(res.book_list)
+  books.value = res.book_list
+  state.total = res.book_list.length
+  message.value = res.book_list
+}
 
 const state = reactive({
   page: 1,
@@ -199,9 +220,6 @@ const state = reactive({
   total: 0
 })
 
-const message = ref()
-
-//前端限制分页（tableData为当前展示页表格）
 const tableData = () => {
   if (message.value) {
     return message.value.filter(
@@ -218,80 +236,125 @@ const handleSizeChange = (e) => {
   state.limit = e
 }
 
+// 把getBookInfoAPI的结果赋值给books
+// const books = get_book_info()
+
 onMounted(() => {
-  console.log('yesyesyes!')
-  get_pop_book_info()
+  get_book_info()
 })
+
+// const temp_data = get_book_info()
+
+// const books = [
+//   {
+//     id: '1',
+//     cover: 'https://i.loli.net/2019/04/10/5cada7e73d601.jpg',
+//     title: '三体',
+//     author: '刘慈欣',
+//     date: '2019-05-05',
+//     press: '重庆出版社',
+//     abs: '文化大革命如火如荼进行的同时。军方探寻外星文明的绝秘计划“红岸工程”取得了突破性进展。但在按下发射键的那一刻，历经劫难的叶文洁没有意识到，她彻底改变了人类的命运。地球文明向宇宙发出的第一声啼鸣，以太阳为中心，以光速向宇宙深处飞驰……'
+//   }
+// ]
+
+// function push_router(book_id) {
+//   console.log(book_id)
+//   router.push({
+//     name: 'bookinfo',
+//     params: {
+//       book_id: JSON.stringify(book_id)
+//     }
+//   })
+// }
+
+function push_router(book_id) {
+  console.log(book_id)
+  router.push({
+    name: 'recommendinfo',
+    query: {
+      book_id: JSON.stringify(book_id)
+    }
+  })
+}
+
+// export default {
+//   // name: 'Books',
+//   setup() {
+//     const books = ref([
+//       {
+//         id: '1',
+//         cover: 'https://i.loli.net/2019/04/10/5cada7e73d601.jpg',
+//         title: '三体',
+//         author: '刘慈欣',
+//         date: '2019-05-05',
+//         press: '重庆出版社',
+//         abs: '文化大革命如火如荼进行的同时。军方探寻外星文明的绝秘计划“红岸工程”取得了突破性进展。但在按下发射键的那一刻，历经劫难的叶文洁没有意识到，她彻底改变了人类的命运。地球文明向宇宙发出的第一声啼鸣，以太阳为中心，以光速向宇宙深处飞驰……'
+//       }
+//     ])
+
+//     return { books }
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>
-#booklist {
-  margin-bottom: 50px;
-}
-.box-card {
-  display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-}
-#image {
-  display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  width: 155px;
-}
 #image_title {
   display: flex;
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
-  width: 155px;
-  height: 200px;
+  width: 110px;
+  height: 162px;
   background-color: #e7e5e5;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
   color: #29455b;
 }
-#booktitle {
-  font-size: 30px;
-  font-weight: 600;
-  color: #29455b;
-  justify-content: center; /* 水平居中 */
-}
-#bookcontent {
-  display: flex;
-  align-items: center;
-  line-height: 2;
-  margin-top: 10px;
-}
-#bookinfo {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-#bookrating {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-.pl {
-  color: #666666;
-  line-height: 150%;
-  font-size: 13px;
-}
-a {
-  font-size: 13px;
-}
-.pagination-block {
+.book_list {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.rating_logo {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.cover {
+  width: 115px;
+  height: 172px;
+  margin-bottom: 7px;
+  overflow: hidden;
+  cursor: pointer;
 }
-.rating_num {
-  font-size: 30px;
+
+img {
+  width: 115px;
+  height: 172px;
+  /*margin: 0 auto;*/
+}
+
+.title {
+  font-size: 14px;
+  text-align: left;
+}
+
+.author {
+  color: #333;
+  width: 102px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.abstract {
+  display: block;
+  line-height: 17px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:focus {
+  color: #3377aa;
 }
 </style>
+@/apis/books

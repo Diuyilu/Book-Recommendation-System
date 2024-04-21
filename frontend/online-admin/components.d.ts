@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    2: typeof import('./src/components/history/HistoryManagement copy 2.vue')['default']
     AdminBreadcrumb: typeof import('./src/components/layout/AdminBreadcrumb.vue')['default']
     AdminHeader: typeof import('./src/components/layout/AdminHeader.vue')['default']
     AdminHome: typeof import('./src/components/home/AdminHome.vue')['default']
@@ -17,6 +18,7 @@ declare module 'vue' {
     BookInfo: typeof import('./src/components/books/BookInfo.vue')['default']
     BookManagement: typeof import('./src/components/books/BookManagement.vue')['default']
     BookSearch: typeof import('./src/components/books/BookSearch.vue')['default']
+    CollectionManagement: typeof import('./src/components/users/CollectionManagement.vue')['default']
     copy: typeof import('./src/components/recommend/RecommendManagement copy.vue')['default']
     DatavManagement: typeof import('./src/components/datav/DatavManagement.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
@@ -45,12 +47,15 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     HistoryManagement: typeof import('./src/components/history/HistoryManagement.vue')['default']
     'HistoryManagement copy': typeof import('./src/components/history/HistoryManagement copy.vue')['default']
+    'HistoryManagement origin': typeof import('./src/components/history/HistoryManagement origin.vue')['default']
     LineChart: typeof import('./src/components/home/adminHome/LineChart.vue')['default']
     NewBook: typeof import('./src/components/books/NewBook.vue')['default']
+    origin: typeof import('./src/components/history/HistoryManagement origin.vue')['default']
     PieChart: typeof import('./src/components/home/adminHome/PieChart.vue')['default']
     PopularBook: typeof import('./src/components/books/PopularBook.vue')['default']
     RecommendManagement: typeof import('./src/components/recommend/RecommendManagement.vue')['default']
     'RecommendManagement copy': typeof import('./src/components/recommend/RecommendManagement copy.vue')['default']
+    RecommendManagementOld: typeof import('./src/components/recommend/RecommendManagementOld.vue')['default']
     RecommendManagementOrigin: typeof import('./src/components/recommend/RecommendManagementOrigin.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

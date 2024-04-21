@@ -1,29 +1,54 @@
 from flask_restful import Resource
 from flask_restful import request
-from flask import session, jsonify
+from flask import session, jsonify, g
 from user.models import User
-from user.serializers import user_serializer
-from extension import db
+from user.serializers import user_serializer, now_user_serializer
+from extension import db, login_manager
 from user.jwt_token import genToken,verfiyToken
 from flask_login import LoginManager,login_user,logout_user,login_required,current_user
 from user.userinfo import Userinfo
 import json
+from user.userinfo import query2dict
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    print('load_user!!!!!')
+    print(user_id)
+    user = User.query.filter(User.id == user_id).first()
+    user = query2dict(user)
+    user = Userinfo(user)
+    return user
 
 class GetUserInfo(Resource):
     def get(self):
-        userinfo = User.query.all()
-        return user_serializer(userinfo)
+        with open('user_dict.json', 'r') as f:
+            user_dict = json.load(f)
+        username = user_dict['username']
+        print(username)
+        return now_user_serializer(username)
+
 
 class UserLogin(Resource):
     def post(self):
         print(request.form)
         username = request.form['username']
         password = request.form['password']
-        user = Userinfo.queryUser(username)
+        print(username)
+        user = User.query.filter(User.username == username).first()
+        user_dict = query2dict(user)
+        user = Userinfo(user_dict)
+        print('user')
+        print(user.id)
+        # user = Userinfo.queryUser(username)
         if (user is not None) and (user.verifyPassword(password)):
+        # if (user is not None) and (user.password == password):
             login_user(user)
             token = genToken({'username': username, 'password': password})
+            with open('user_dict.json', 'w') as f:
+                json.dump(user_dict, f)
             returnData = {"succeed": True, 'code': 200, 'message': '成功', 'data': {'token': token}}
+
             print(returnData)
             # return json.dumps(returnData), 200
             return jsonify(returnData) # 200
@@ -37,6 +62,7 @@ class UserLogout(Resource):
     def get(self):
         username = current_user.username
         logout_user()
+        now_user = ''
         returndata = {'code': 0, 'msg': 'success', 'data': ' Bye ' + username }
         return json.dumps(returndata),200
 

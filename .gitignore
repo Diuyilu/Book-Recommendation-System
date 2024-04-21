@@ -1,2 +1,3 @@
 # .gitignore
 backend/key.txt
+backend/user_dict.json

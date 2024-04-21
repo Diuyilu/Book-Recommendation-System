@@ -7,6 +7,7 @@ export const loginApi = (data: { password: string; username: string }) => {
     method: 'POST',
     url: '/api/login',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    data: qs.stringify(data)
+    data: qs.stringify(data),
+    withCredentials: true
   })
 }

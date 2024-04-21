@@ -4,6 +4,8 @@ from flask import jsonify
 def book_serializer(bookinfo):
     book_list = []
     for book in bookinfo:
+        if type(book) == 'NoneType':
+            pass
         booktest_dict = {
             'book_title': book.book_title,
             'content_validity': book.content_validity,
@@ -18,7 +20,8 @@ def book_serializer(bookinfo):
             'db_id': book.db_id,
             'set_id': book.set_id,
             'book_id': book.book_id,
-            'menu': book.menu
+            'menu': book.menu,
+            'fake_rating': book.fake_rating
         }
         if book.rating:
             booktest_dict['rating'] = book.rating
@@ -42,3 +45,21 @@ def label_serializer(bookinfo):
         }
         label_list.append(label_dict)
     return jsonify({'label_list': label_list, "status": 1})
+
+def borrowing_serializer(borrowinginfo):
+    borrowing_list = []
+    for borrowing in borrowinginfo:
+        borrowing_dict = {
+            'xh': borrowing.xh,
+            'xb': borrowing.xb,
+            'nl': borrowing.nl,
+            'syd': borrowing.syd,
+            'pycc': borrowing.pycc,
+            'sznj': borrowing.sznj,
+            'xy': borrowing.xy,
+            'tsbh': borrowing.tsbh,
+            'czrq': borrowing.czrq,
+            'jyzt': borrowing.jyzt
+        }
+        borrowing_list.append(borrowing_dict)
+    return jsonify({'borrowing_list': borrowing_list, "status": 1})

@@ -4,11 +4,18 @@
       <div class="logo">
         <el-image
           src="https://www.cuc.edu.cn/_upload/article/images/2d/8f/0d01cab040ba9acf65ff3b0a2910/b2a81a00-4154-4480-bc1b-9f2b2f0184e4.jpg"
-          fit="fill" :lazy="true"></el-image>
+          fit="fill"
+          :lazy="true"
+        ></el-image>
       </div>
       <el-form ref="formRef" :model="form" :rules="rules">
         <el-form-item prop="username">
-          <el-input class="input" v-model="form.username" placeholder="用户名" :prefix-icon="User" />
+          <el-input
+            class="input"
+            v-model="form.username"
+            placeholder="用户名"
+            :prefix-icon="User"
+          />
         </el-form-item>
         <el-form-item prop="password">
           <el-input class="input" v-model="form.password" placeholder="密码" :prefix-icon="Lock" />
@@ -37,8 +44,8 @@ interface Form {
   password: string
 }
 const form = ref<Form>({
-  username: 'admin',
-  password: 'admin'
+  username: '',
+  password: ''
 })
 
 const formRef = ref<FormInstance>()

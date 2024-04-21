@@ -71,9 +71,9 @@
               <a>{{ book.translator }}</a>
               <br />
             </div>
-            <div v-if="book.pubdate">
+            <div v-if="book.pubyear">
               <span class="pl">出版年：</span>
-              <a>{{ book.pubdate }}</a>
+              <a>{{ book.pubyear }}</a>
               <br />
             </div>
             <div v-if="book.pages">

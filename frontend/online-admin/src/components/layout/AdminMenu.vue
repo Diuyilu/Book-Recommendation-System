@@ -2,22 +2,10 @@
   <el-row class="tac">
     <el-image :src="cuclogo" fit="fill" style="width: 95%" />
     <el-col :span="24">
-      <el-menu
-        active-text-color="#ffd04b"
-        background-color="#0f1921"
-        class="el-menu-vertical-demo"
-        :default-active="defaultActive"
-        text-color="#fff"
-        router
-        @open="handleOpen"
-        @close="handleClose"
-      >
-        <component
-          :is="item.children ? ElSubMenu : ElMenuItem"
-          v-for="item in menulist"
-          :key="item.id"
-          :index="item.index"
-        >
+      <el-menu active-text-color="#ffd04b" background-color="#0f1921" class="el-menu-vertical-demo"
+        :default-active="defaultActive" text-color="#fff" router @open="handleOpen" @close="handleClose">
+        <component :is="item.children ? ElSubMenu : ElMenuItem" v-for="item in menulist" :key="item.id"
+          :index="item.index">
           <template v-if="item.children" #title>
             <el-icon v-if="item.icon">
               <component :is="item.icon"></component>
@@ -30,12 +18,8 @@
             </el-icon>
             <span style="font-size: 18px">{{ item.name }}</span>
           </span>
-          <el-menu-item
-            style="font-size: 18px"
-            v-for="subItem in item.children"
-            :key="subItem.id"
-            :index="subItem.index"
-          >
+          <el-menu-item style="font-size: 18px" v-for="subItem in item.children" :key="subItem.id"
+            :index="subItem.index">
             {{ subItem.name }}
           </el-menu-item>
         </component>
@@ -87,6 +71,11 @@ const menulist: MenuItem[] = [
         id: 302,
         name: '个人推荐',
         index: '/home/users/recommend'
+      },
+      {
+        id: 303,
+        name: '我的收藏',
+        index: '/home/users/collection'
       }
     ]
   },

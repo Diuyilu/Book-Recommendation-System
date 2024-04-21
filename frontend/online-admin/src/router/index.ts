@@ -78,6 +78,26 @@ const router = createRouter({
                   }
                 }
               ]
+            },
+            {
+              path: 'collection',
+              name: 'collection',
+              component: () => import('@/components/users/CollectionManagement.vue'),
+              meta: {
+                title: '我的收藏',
+                parentRouteName: 'users'
+              },
+              children: [
+                {
+                  path: 'collectioninfo',
+                  name: 'collectioninfo',
+                  component: BookInfo,
+                  meta: {
+                    title: '图书信息',
+                    parentRouteName: 'collection'
+                  }
+                }
+              ]
             }
           ]
         },
