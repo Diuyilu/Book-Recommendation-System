@@ -70,8 +70,8 @@
         </el-col>
         <div class="pagination-block">
           <!-- <div class="example-demonstration">分页</div> -->
-          <el-pagination background :page-sizes="[6, 10]" :page-size="6" layout="prev, pager, next" :total="state.total"
-            @current-change="handleCurrentChange" @size-change="handleSizeChange" />
+          <el-pagination background :page-sizes="[6, 12]" :page-size="12" layout="prev, pager, next"
+            :total="state.total" @current-change="handleCurrentChange" @size-change="handleSizeChange" />
         </div>
       </el-row>
     </div>
@@ -237,7 +237,7 @@ watch(
 
 const state = reactive({
   page: 1,
-  limit: 6,
+  limit: 12,
   // total: message.value.length
   total: 0
 })
@@ -266,7 +266,7 @@ onMounted(() => {
   display: flex;
   // justify-content: center;
   // align-items: center;
-  height: 390px;
+  // height: 390px;
 }
 
 .box-card {

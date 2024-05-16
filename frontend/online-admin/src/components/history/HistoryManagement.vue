@@ -26,9 +26,24 @@
         </el-col>
         <div class="pagination-block">
           <!-- <div class="example-demonstration">分页</div> -->
-          <el-pagination background :page-sizes="[7, 10]" :page-size="7" layout="prev, pager, next" :total="state.total"
-            @current-change="handleCurrentChange" @size-change="handleSizeChange" />
+          <el-pagination background :page-sizes="[7, 14]" :page-size="14" layout="prev, pager, next"
+            :total="state.total" @current-change="handleCurrentChange" @size-change="handleSizeChange" />
         </div>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div style="font-size: 20px">个人标签</div>
+          <el-row>
+            <el-col :span="3" v-for="label in booktable()" :key="label" style="margin-bottom: 20px">
+              <!-- <el-card class="box-card" shadow="hover" style="height: 280px; width: 200px; border: 0px">
+                <div style="text-align: center; font-size: 20px; font-weight: 500">{{ label }}</div>
+              </el-card> -->
+              <el-button type="primary" style="width: 150px; height: 50px; margin-top: 40px; margin-left: 10px">{{
+                getBookCategory(label)
+              }}</el-button>
+            </el-col>
+          </el-row>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -62,10 +77,50 @@ const get_book_info_by_borrowing = async () => {
   state.total = res.book_list.length
 }
 
+const bookCategories = {
+  "A": "马列毛邓",
+  "B": "哲学、宗教",
+  "C": "社会科学总论",
+  "D": "政治、法律",
+  "E": "军事",
+  "F": "经济",
+  "G": "文化、科学、教育、体育",
+  "H": "语言、文字",
+  "I": "文学",
+  "J": "艺术",
+  "K": "历史、地理",
+  "N": "自然科学总论",
+  "O": "数理科学和化学",
+  "P": "天文学、地球科学",
+  "Q": "生物科学",
+  "R": "医药、卫生",
+  "S": "农业科学",
+  "T": "工业技术",
+  "U": "交通运输",
+  "V": "航空、航天",
+  "X": "环境科学、安全科学",
+  "Z": "综合性图书"
+}
+
+function getBookCategory(letter) {
+  return bookCategories[letter.toUpperCase()];
+}
 // const get_history_book_info = async () => {
 //   message.value = books
 //   state.total = books.length
 // }
+
+const booktable = () => {
+  const booktablelist = []
+  if (books.value) {
+    for (let i = 0; i < books.value.length; i++) {
+      if (!booktablelist.includes(books.value[i].label)) {
+        booktablelist.push(books.value[i].label)
+      }
+    }
+    return booktablelist
+  } else return booktablelist
+}
 
 const tableData = () => {
   if (message.value) {
@@ -104,7 +159,7 @@ watch(
 
 const state = reactive({
   page: 1,
-  limit: 7,
+  limit: 14,
   // total: message.value.length
   total: 0
 })
@@ -432,7 +487,7 @@ onMounted(() => {
   display: flex;
   // justify-content: center;
   // align-items: center;
-  height: 390px;
+  // height: 390px;
 }
 
 .box-card {
